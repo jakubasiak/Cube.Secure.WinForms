@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Windows.Forms;
 using Cube.Secure.WinForms.Logic;
 
@@ -28,9 +29,10 @@ namespace Cube.Secure.WinForms
         public Form1()
         {
             InitializeComponent();
+            this.StartPosition = FormStartPosition.CenterScreen;
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void openDirectory_Click(object sender, EventArgs e)
         {
             using(FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog())
             {
@@ -39,7 +41,6 @@ namespace Cube.Secure.WinForms
                 {
                     RefreashFileList(folderBrowserDialog.SelectedPath);
                 }
-
             }
         }
 
@@ -89,6 +90,7 @@ namespace Cube.Secure.WinForms
             if (this.selectedPaths.Any())
             {
                 PasswordDialog passwordDialog = new PasswordDialog("Encypt");
+                passwordDialog.StartPosition = FormStartPosition.CenterParent;
                 var result = passwordDialog.ShowDialog();
                 if (result == DialogResult.OK && !string.IsNullOrEmpty(passwordDialog.Password))
                 {
@@ -108,6 +110,7 @@ namespace Cube.Secure.WinForms
         private void decrypt_Click(object sender, EventArgs e)
         {
             PasswordDialog passwordDialog = new PasswordDialog("Decrypt");
+            passwordDialog.StartPosition = FormStartPosition.CenterParent;
             var result = passwordDialog.ShowDialog();
             if (result == DialogResult.OK && !string.IsNullOrEmpty(passwordDialog.Password))
             {
@@ -120,6 +123,52 @@ namespace Cube.Secure.WinForms
                     var decryptedFile = this.Aes.Decrypt(file, password);
                     File.WriteAllBytes(path, decryptedFile);
                 }
+            }
+        }
+
+        private void encryptWithNamesBtn_Click(object sender, EventArgs e)
+        {
+            PasswordDialog passwordDialog = new PasswordDialog("Encypt");
+            passwordDialog.StartPosition = FormStartPosition.CenterParent;
+            var result = passwordDialog.ShowDialog();
+            if (result == DialogResult.OK && !string.IsNullOrEmpty(passwordDialog.Password))
+            {
+                var password = passwordDialog.Password;
+                var allFilePaths = this.GetAllFilePaths();
+
+                foreach (var path in allFilePaths)
+                {
+                    var file = File.ReadAllBytes(path);
+                    var encryptedFile = this.Aes.Encrypt(file, password);
+                    var encryptedFileName = this.GetEncryptedFileName(path, password);
+                    File.WriteAllBytes(encryptedFileName, encryptedFile);
+                    File.Delete(path);
+                }
+
+                this.RefreashFileList(this.currentDirectory);
+            }
+        }
+
+        private void decryptWithNamesBtn_Click(object sender, EventArgs e)
+        {
+            PasswordDialog passwordDialog = new PasswordDialog("Decrypt");
+            passwordDialog.StartPosition = FormStartPosition.CenterParent;
+            var result = passwordDialog.ShowDialog();
+            if (result == DialogResult.OK && !string.IsNullOrEmpty(passwordDialog.Password))
+            {
+                var password = passwordDialog.Password;
+                var allFilePaths = this.GetAllFilePaths();
+
+                foreach (var path in allFilePaths)
+                {
+                    var file = File.ReadAllBytes(path);
+                    var decryptedFile = this.Aes.Decrypt(file, password);
+                    var decryptedFileName = this.GetDecryptedFileName(path, password);
+                    File.WriteAllBytes(decryptedFileName, decryptedFile);
+                    File.Delete(path);
+                }
+
+                this.RefreashFileList(this.currentDirectory);
             }
         }
 
@@ -158,5 +207,29 @@ namespace Cube.Secure.WinForms
             return allFilePaths;
         }
 
+        private string GetEncryptedFileName(string path, string password)
+        {
+            var filePath = Path.GetDirectoryName(path);
+            var fileName = Path.GetFileName(path);
+            var bytesFileName = Encoding.UTF8.GetBytes(fileName);
+            var encryptedFileName = Convert.ToBase64String(bytesFileName);
+
+            return filePath + Path.DirectorySeparatorChar + encryptedFileName;
+        }
+
+        private string GetDecryptedFileName(string path, string password)
+        {
+            var filePath = Path.GetDirectoryName(path);
+            var fileName = Path.GetFileName(path);
+            var bytesFileName = Convert.FromBase64String(fileName);
+            var decryptedFileName = Encoding.UTF8.GetString(bytesFileName);
+
+            return filePath + Path.DirectorySeparatorChar + decryptedFileName;
+        }
+
+        private void exitMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }

@@ -48,27 +48,31 @@ namespace Cube.Secure.WinForms
             this.exitMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.encryptMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.decryptMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
+            this.decryptMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.encryptWithNamesMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.decryptWithNamesMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pathTextBox = new System.Windows.Forms.TextBox();
+            this.encryptWithNamesBtn = new System.Windows.Forms.Button();
+            this.decryptWithNamesBtn = new System.Windows.Forms.Button();
             this.statusStrip.SuspendLayout();
             this.menuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(688, 43);
+            this.button1.Location = new System.Drawing.Point(638, 43);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(100, 25);
+            this.button1.Size = new System.Drawing.Size(150, 25);
             this.button1.TabIndex = 0;
             this.button1.Text = "Open directory";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.button1.Click += new System.EventHandler(this.openDirectory_Click);
             // 
             // encryptBtn
             // 
-            this.encryptBtn.Location = new System.Drawing.Point(688, 74);
+            this.encryptBtn.Location = new System.Drawing.Point(638, 74);
             this.encryptBtn.Name = "encryptBtn";
-            this.encryptBtn.Size = new System.Drawing.Size(100, 25);
+            this.encryptBtn.Size = new System.Drawing.Size(150, 25);
             this.encryptBtn.TabIndex = 1;
             this.encryptBtn.Text = "Encrypt";
             this.encryptBtn.UseVisualStyleBackColor = true;
@@ -76,9 +80,9 @@ namespace Cube.Secure.WinForms
             // 
             // decryptBtn
             // 
-            this.decryptBtn.Location = new System.Drawing.Point(688, 105);
+            this.decryptBtn.Location = new System.Drawing.Point(638, 105);
             this.decryptBtn.Name = "decryptBtn";
-            this.decryptBtn.Size = new System.Drawing.Size(100, 25);
+            this.decryptBtn.Size = new System.Drawing.Size(150, 25);
             this.decryptBtn.TabIndex = 2;
             this.decryptBtn.Text = "Decrypt";
             this.decryptBtn.UseVisualStyleBackColor = true;
@@ -90,7 +94,7 @@ namespace Cube.Secure.WinForms
             this.listView.LargeImageList = this.fileImageList;
             this.listView.Location = new System.Drawing.Point(13, 74);
             this.listView.Name = "listView";
-            this.listView.Size = new System.Drawing.Size(669, 487);
+            this.listView.Size = new System.Drawing.Size(619, 487);
             this.listView.TabIndex = 3;
             this.listView.UseCompatibleStateImageBehavior = false;
             this.listView.Click += new System.EventHandler(this.listView_Click);
@@ -149,6 +153,7 @@ namespace Cube.Secure.WinForms
             this.openMenuItem.Name = "openMenuItem";
             this.openMenuItem.Size = new System.Drawing.Size(103, 22);
             this.openMenuItem.Text = "Open";
+            this.openMenuItem.Click += new System.EventHandler(this.openDirectory_Click);
             // 
             // toolStripSeparator1
             // 
@@ -160,12 +165,15 @@ namespace Cube.Secure.WinForms
             this.exitMenuItem.Name = "exitMenuItem";
             this.exitMenuItem.Size = new System.Drawing.Size(103, 22);
             this.exitMenuItem.Text = "Exit";
+            this.exitMenuItem.Click += new System.EventHandler(this.exitMenuItem_Click);
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.encryptMenuItem,
-            this.decryptMenuItem4});
+            this.decryptMenuItem,
+            this.encryptWithNamesMenuItem,
+            this.decryptWithNamesMenuItem});
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
             this.toolStripMenuItem2.Size = new System.Drawing.Size(92, 20);
             this.toolStripMenuItem2.Text = "Cryptography";
@@ -173,26 +181,64 @@ namespace Cube.Secure.WinForms
             // encryptMenuItem
             // 
             this.encryptMenuItem.Name = "encryptMenuItem";
-            this.encryptMenuItem.Size = new System.Drawing.Size(115, 22);
+            this.encryptMenuItem.Size = new System.Drawing.Size(198, 22);
             this.encryptMenuItem.Text = "Encrypt";
+            this.encryptMenuItem.Click += new System.EventHandler(this.encrypt_Click);
             // 
-            // decryptMenuItem4
+            // decryptMenuItem
             // 
-            this.decryptMenuItem4.Name = "decryptMenuItem4";
-            this.decryptMenuItem4.Size = new System.Drawing.Size(115, 22);
-            this.decryptMenuItem4.Text = "Decrypt";
+            this.decryptMenuItem.Name = "decryptMenuItem";
+            this.decryptMenuItem.Size = new System.Drawing.Size(198, 22);
+            this.decryptMenuItem.Text = "Decrypt";
+            this.decryptMenuItem.Click += new System.EventHandler(this.decrypt_Click);
+            // 
+            // encryptWithNamesMenuItem
+            // 
+            this.encryptWithNamesMenuItem.Name = "encryptWithNamesMenuItem";
+            this.encryptWithNamesMenuItem.Size = new System.Drawing.Size(198, 22);
+            this.encryptWithNamesMenuItem.Text = "Encrypt with file names";
+            this.encryptWithNamesMenuItem.Click += new System.EventHandler(this.encryptWithNamesBtn_Click);
+            // 
+            // decryptWithNamesMenuItem
+            // 
+            this.decryptWithNamesMenuItem.Name = "decryptWithNamesMenuItem";
+            this.decryptWithNamesMenuItem.Size = new System.Drawing.Size(198, 22);
+            this.decryptWithNamesMenuItem.Text = "Decrypt with file names";
+            this.decryptWithNamesMenuItem.Click += new System.EventHandler(this.decryptWithNamesBtn_Click);
             // 
             // pathTextBox
             // 
             this.pathTextBox.Enabled = false;
             this.pathTextBox.Location = new System.Drawing.Point(13, 43);
             this.pathTextBox.Name = "pathTextBox";
-            this.pathTextBox.Size = new System.Drawing.Size(669, 23);
+            this.pathTextBox.Size = new System.Drawing.Size(619, 23);
             this.pathTextBox.TabIndex = 6;
+            // 
+            // encryptWithNamesBtn
+            // 
+            this.encryptWithNamesBtn.Location = new System.Drawing.Point(638, 136);
+            this.encryptWithNamesBtn.Name = "encryptWithNamesBtn";
+            this.encryptWithNamesBtn.Size = new System.Drawing.Size(150, 25);
+            this.encryptWithNamesBtn.TabIndex = 1;
+            this.encryptWithNamesBtn.Text = "Encrypt with file names";
+            this.encryptWithNamesBtn.UseVisualStyleBackColor = true;
+            this.encryptWithNamesBtn.Click += new System.EventHandler(this.encryptWithNamesBtn_Click);
+            // 
+            // decryptWithNamesBtn
+            // 
+            this.decryptWithNamesBtn.Location = new System.Drawing.Point(638, 167);
+            this.decryptWithNamesBtn.Name = "decryptWithNamesBtn";
+            this.decryptWithNamesBtn.Size = new System.Drawing.Size(150, 25);
+            this.decryptWithNamesBtn.TabIndex = 1;
+            this.decryptWithNamesBtn.Text = "Decrypt with file names";
+            this.decryptWithNamesBtn.UseVisualStyleBackColor = true;
+            this.decryptWithNamesBtn.Click += new System.EventHandler(this.decryptWithNamesBtn_Click);
             // 
             // Form1
             // 
             this.ClientSize = new System.Drawing.Size(800, 600);
+            this.Controls.Add(this.decryptWithNamesBtn);
+            this.Controls.Add(this.encryptWithNamesBtn);
             this.Controls.Add(this.pathTextBox);
             this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.menuStrip);
@@ -229,7 +275,11 @@ namespace Cube.Secure.WinForms
         private System.Windows.Forms.ToolStripMenuItem exitMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem encryptMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem decryptMenuItem4;
+        private System.Windows.Forms.ToolStripMenuItem decryptMenuItem;
+        private System.Windows.Forms.Button encryptWithNamesBtn;
+        private System.Windows.Forms.Button decryptWithNamesBtn;
+        private System.Windows.Forms.ToolStripMenuItem encryptWithNamesMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem decryptWithNamesMenuItem;
     }
 }
 
