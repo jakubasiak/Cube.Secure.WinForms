@@ -34,16 +34,24 @@ namespace Cube.Secure.WinForms
         {
             this.components = new System.ComponentModel.Container();
             this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.encryptBtn = new System.Windows.Forms.Button();
+            this.decryptBtn = new System.Windows.Forms.Button();
             this.listView = new System.Windows.Forms.ListView();
             this.fileImageList = new System.Windows.Forms.ImageList(this.components);
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.SelectedItems = new System.Windows.Forms.ToolStripStatusLabel();
             this.ItemNames = new System.Windows.Forms.ToolStripStatusLabel();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.menuStrip = new System.Windows.Forms.MenuStrip();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.openMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.exitMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.encryptMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.decryptMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
             this.pathTextBox = new System.Windows.Forms.TextBox();
             this.statusStrip.SuspendLayout();
+            this.menuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // button1
@@ -56,23 +64,25 @@ namespace Cube.Secure.WinForms
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // button2
+            // encryptBtn
             // 
-            this.button2.Location = new System.Drawing.Point(688, 74);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(100, 25);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "Encrypt";
-            this.button2.UseVisualStyleBackColor = true;
+            this.encryptBtn.Location = new System.Drawing.Point(688, 74);
+            this.encryptBtn.Name = "encryptBtn";
+            this.encryptBtn.Size = new System.Drawing.Size(100, 25);
+            this.encryptBtn.TabIndex = 1;
+            this.encryptBtn.Text = "Encrypt";
+            this.encryptBtn.UseVisualStyleBackColor = true;
+            this.encryptBtn.Click += new System.EventHandler(this.encrypt_Click);
             // 
-            // button3
+            // decryptBtn
             // 
-            this.button3.Location = new System.Drawing.Point(688, 105);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(100, 25);
-            this.button3.TabIndex = 2;
-            this.button3.Text = "Decrypt";
-            this.button3.UseVisualStyleBackColor = true;
+            this.decryptBtn.Location = new System.Drawing.Point(688, 105);
+            this.decryptBtn.Name = "decryptBtn";
+            this.decryptBtn.Size = new System.Drawing.Size(100, 25);
+            this.decryptBtn.TabIndex = 2;
+            this.decryptBtn.Text = "Decrypt";
+            this.decryptBtn.UseVisualStyleBackColor = true;
+            this.decryptBtn.Click += new System.EventHandler(this.decrypt_Click);
             // 
             // listView
             // 
@@ -80,7 +90,7 @@ namespace Cube.Secure.WinForms
             this.listView.LargeImageList = this.fileImageList;
             this.listView.Location = new System.Drawing.Point(13, 74);
             this.listView.Name = "listView";
-            this.listView.Size = new System.Drawing.Size(669, 484);
+            this.listView.Size = new System.Drawing.Size(669, 487);
             this.listView.TabIndex = 3;
             this.listView.UseCompatibleStateImageBehavior = false;
             this.listView.Click += new System.EventHandler(this.listView_Click);
@@ -113,13 +123,64 @@ namespace Cube.Secure.WinForms
             this.ItemNames.Name = "ItemNames";
             this.ItemNames.Size = new System.Drawing.Size(0, 17);
             // 
-            // menuStrip1
+            // menuStrip
             // 
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(800, 24);
-            this.menuStrip1.TabIndex = 5;
-            this.menuStrip1.Text = "menuStrip1";
+            this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem1,
+            this.toolStripMenuItem2});
+            this.menuStrip.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip.Name = "menuStrip";
+            this.menuStrip.Size = new System.Drawing.Size(800, 24);
+            this.menuStrip.TabIndex = 5;
+            this.menuStrip.Text = "menuStrip1";
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.openMenuItem,
+            this.toolStripSeparator1,
+            this.exitMenuItem});
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(37, 20);
+            this.toolStripMenuItem1.Text = "File";
+            // 
+            // openMenuItem
+            // 
+            this.openMenuItem.Name = "openMenuItem";
+            this.openMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.openMenuItem.Text = "Open";
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(100, 6);
+            // 
+            // exitMenuItem
+            // 
+            this.exitMenuItem.Name = "exitMenuItem";
+            this.exitMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.exitMenuItem.Text = "Exit";
+            // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.encryptMenuItem,
+            this.decryptMenuItem4});
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(92, 20);
+            this.toolStripMenuItem2.Text = "Cryptography";
+            // 
+            // encryptMenuItem
+            // 
+            this.encryptMenuItem.Name = "encryptMenuItem";
+            this.encryptMenuItem.Size = new System.Drawing.Size(115, 22);
+            this.encryptMenuItem.Text = "Encrypt";
+            // 
+            // decryptMenuItem4
+            // 
+            this.decryptMenuItem4.Name = "decryptMenuItem4";
+            this.decryptMenuItem4.Size = new System.Drawing.Size(115, 22);
+            this.decryptMenuItem4.Text = "Decrypt";
             // 
             // pathTextBox
             // 
@@ -134,15 +195,17 @@ namespace Cube.Secure.WinForms
             this.ClientSize = new System.Drawing.Size(800, 600);
             this.Controls.Add(this.pathTextBox);
             this.Controls.Add(this.statusStrip);
-            this.Controls.Add(this.menuStrip1);
+            this.Controls.Add(this.menuStrip);
             this.Controls.Add(this.listView);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.decryptBtn);
+            this.Controls.Add(this.encryptBtn);
             this.Controls.Add(this.button1);
-            this.MainMenuStrip = this.menuStrip1;
+            this.MainMenuStrip = this.menuStrip;
             this.Name = "Form1";
             this.statusStrip.ResumeLayout(false);
             this.statusStrip.PerformLayout();
+            this.menuStrip.ResumeLayout(false);
+            this.menuStrip.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -151,15 +214,22 @@ namespace Cube.Secure.WinForms
         #endregion
 
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button encryptBtn;
+        private System.Windows.Forms.Button decryptBtn;
         private System.Windows.Forms.ListView listView;
         private System.Windows.Forms.StatusStrip statusStrip;
-        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.MenuStrip menuStrip;
         private System.Windows.Forms.ImageList fileImageList;
         private System.Windows.Forms.TextBox pathTextBox;
         private System.Windows.Forms.ToolStripStatusLabel SelectedItems;
         private System.Windows.Forms.ToolStripStatusLabel ItemNames;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem openMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem exitMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem encryptMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem decryptMenuItem4;
     }
 }
 
