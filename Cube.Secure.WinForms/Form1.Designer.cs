@@ -39,6 +39,7 @@ namespace Cube.Secure.WinForms
             this.listView = new System.Windows.Forms.ListView();
             this.fileImageList = new System.Windows.Forms.ImageList(this.components);
             this.statusStrip = new System.Windows.Forms.StatusStrip();
+            this.toolStripProgressBar = new System.Windows.Forms.ToolStripProgressBar();
             this.SelectedItems = new System.Windows.Forms.ToolStripStatusLabel();
             this.ItemNames = new System.Windows.Forms.ToolStripStatusLabel();
             this.menuStrip = new System.Windows.Forms.MenuStrip();
@@ -109,23 +110,34 @@ namespace Cube.Secure.WinForms
             // statusStrip
             // 
             this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripProgressBar,
             this.SelectedItems,
             this.ItemNames});
-            this.statusStrip.Location = new System.Drawing.Point(0, 578);
+            this.statusStrip.Location = new System.Drawing.Point(0, 576);
             this.statusStrip.Name = "statusStrip";
-            this.statusStrip.Size = new System.Drawing.Size(800, 22);
+            this.statusStrip.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.statusStrip.Size = new System.Drawing.Size(800, 24);
             this.statusStrip.TabIndex = 4;
+            // 
+            // toolStripProgressBar
+            // 
+            this.toolStripProgressBar.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolStripProgressBar.Name = "toolStripProgressBar";
+            this.toolStripProgressBar.Size = new System.Drawing.Size(100, 18);
+            this.toolStripProgressBar.Step = 1;
             // 
             // SelectedItems
             // 
-            this.SelectedItems.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right;
+            this.SelectedItems.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right)));
             this.SelectedItems.Name = "SelectedItems";
-            this.SelectedItems.Size = new System.Drawing.Size(4, 17);
+            this.SelectedItems.Size = new System.Drawing.Size(67, 19);
+            this.SelectedItems.Text = "Selected: 0";
             // 
             // ItemNames
             // 
             this.ItemNames.Name = "ItemNames";
-            this.ItemNames.Size = new System.Drawing.Size(0, 17);
+            this.ItemNames.Size = new System.Drawing.Size(47, 19);
+            this.ItemNames.Text = "Names:";
             // 
             // menuStrip
             // 
@@ -280,6 +292,7 @@ namespace Cube.Secure.WinForms
         private System.Windows.Forms.Button decryptWithNamesBtn;
         private System.Windows.Forms.ToolStripMenuItem encryptWithNamesMenuItem;
         private System.Windows.Forms.ToolStripMenuItem decryptWithNamesMenuItem;
+        private System.Windows.Forms.ToolStripProgressBar toolStripProgressBar;
     }
 }
 

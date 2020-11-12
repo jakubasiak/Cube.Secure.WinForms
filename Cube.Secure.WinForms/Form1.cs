@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using Cube.Secure.WinForms.Logic;
 
@@ -26,18 +29,33 @@ namespace Cube.Secure.WinForms
         string currentDirectory = string.Empty;
         List<string> paths = new List<string>();
         List<string> selectedPaths = new List<string>();
+        BackgroundWorker worker;
         public Form1()
         {
             InitializeComponent();
+            this.worker = new BackgroundWorker();
+            this.worker.ProgressChanged += Worker_ProgressChanged;
+            //this.worker.RunWorkerCompleted += Worker_RunWorkerCompleted;
+            this.worker.WorkerReportsProgress = true;
             this.StartPosition = FormStartPosition.CenterScreen;
+        }
+
+        //private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        //{
+        //    this.toolStripProgressBar.Value = 0;
+        //}
+
+        private void Worker_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            this.toolStripProgressBar.Value = e.ProgressPercentage;
         }
 
         private void openDirectory_Click(object sender, EventArgs e)
         {
-            using(FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog())
+            using (FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog())
             {
                 folderBrowserDialog.Description = "Select your path";
-                if(folderBrowserDialog.ShowDialog(this) == DialogResult.OK)
+                if (folderBrowserDialog.ShowDialog(this) == DialogResult.OK)
                 {
                     RefreashFileList(folderBrowserDialog.SelectedPath);
                 }
@@ -97,15 +115,25 @@ namespace Cube.Secure.WinForms
                     var password = passwordDialog.Password;
                     var allFilePaths = this.GetAllFilePaths();
 
-                    foreach (var path in allFilePaths)
+                    DoWorkEventHandler encrypt = (object sender, DoWorkEventArgs e) => 
                     {
-                        var file = File.ReadAllBytes(path);
-                        var encryptedFile = this.Aes.Encrypt(file, password);
-                        File.WriteAllBytes(path, encryptedFile);
-                    }
+                        for (int i = 0; i < allFilePaths.Count; i++)
+                        {
+                            var file = File.ReadAllBytes(allFilePaths[i]);
+                            var encryptedFile = this.Aes.Encrypt(file, password);
+                            File.WriteAllBytes(allFilePaths[i], encryptedFile);
+                            this.worker.ReportProgress((int)(((float)i / allFilePaths.Count) * 100.0f));
+                            this.toolStripProgressBar.Increment(5);
+                        }
+                    };
+
+                    this.worker.DoWork += encrypt;
+                    this.worker.RunWorkerAsync();
+                    this.worker.DoWork -= encrypt;
                 }
             }
         }
+
 
         private void decrypt_Click(object sender, EventArgs e)
         {
@@ -117,12 +145,15 @@ namespace Cube.Secure.WinForms
                 var password = passwordDialog.Password;
                 var allFilePaths = this.GetAllFilePaths();
 
-                foreach (var path in allFilePaths)
+                Task.Run(() =>
                 {
-                    var file = File.ReadAllBytes(path);
-                    var decryptedFile = this.Aes.Decrypt(file, password);
-                    File.WriteAllBytes(path, decryptedFile);
-                }
+                    foreach (var path in allFilePaths)
+                    {
+                        var file = File.ReadAllBytes(path);
+                        var decryptedFile = this.Aes.Decrypt(file, password);
+                        File.WriteAllBytes(path, decryptedFile);
+                    }
+                });
             }
         }
 
@@ -136,14 +167,17 @@ namespace Cube.Secure.WinForms
                 var password = passwordDialog.Password;
                 var allFilePaths = this.GetAllFilePaths();
 
-                foreach (var path in allFilePaths)
+                Task.Run(() =>
                 {
-                    var file = File.ReadAllBytes(path);
-                    var encryptedFile = this.Aes.Encrypt(file, password);
-                    var encryptedFileName = this.GetEncryptedFileName(path, password);
-                    File.WriteAllBytes(encryptedFileName, encryptedFile);
-                    File.Delete(path);
-                }
+                    foreach (var path in allFilePaths)
+                    {
+                        var file = File.ReadAllBytes(path);
+                        var encryptedFile = this.Aes.Encrypt(file, password);
+                        var encryptedFileName = this.GetEncryptedFileName(path, password);
+                        File.WriteAllBytes(encryptedFileName, encryptedFile);
+                        File.Delete(path);
+                    }
+                });
 
                 this.RefreashFileList(this.currentDirectory);
             }
@@ -159,14 +193,17 @@ namespace Cube.Secure.WinForms
                 var password = passwordDialog.Password;
                 var allFilePaths = this.GetAllFilePaths();
 
-                foreach (var path in allFilePaths)
+                Task.Run(() =>
                 {
-                    var file = File.ReadAllBytes(path);
-                    var decryptedFile = this.Aes.Decrypt(file, password);
-                    var decryptedFileName = this.GetDecryptedFileName(path, password);
-                    File.WriteAllBytes(decryptedFileName, decryptedFile);
-                    File.Delete(path);
-                }
+                    foreach (var path in allFilePaths)
+                    {
+                        var file = File.ReadAllBytes(path);
+                        var decryptedFile = this.Aes.Decrypt(file, password);
+                        var decryptedFileName = this.GetDecryptedFileName(path, password);
+                        File.WriteAllBytes(decryptedFileName, decryptedFile);
+                        File.Delete(path);
+                    }
+                });
 
                 this.RefreashFileList(this.currentDirectory);
             }

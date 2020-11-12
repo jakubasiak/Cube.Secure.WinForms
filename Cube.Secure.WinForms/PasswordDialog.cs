@@ -19,10 +19,19 @@ namespace Cube.Secure.WinForms
         {
             InitializeComponent();
             this.actionBtn.Text = actionName;
+            this.actionBtn.Focus();
         }
 
-        private void passwordTextBox_TextChanged(object sender, EventArgs e)
+        private void passwordTextBox_KeyDown(object sender, KeyEventArgs e)
         {
+            if (e.KeyCode == Keys.Enter)
+            {
+                this.actionBtn.PerformClick();
+            }
+            if (e.KeyCode == Keys.Escape)
+            {
+                this.cancelBtn.PerformClick();
+            }
 
         }
     }
