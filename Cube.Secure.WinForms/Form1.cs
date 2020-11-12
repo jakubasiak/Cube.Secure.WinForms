@@ -6,6 +6,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Cube.Secure.WinForms.Logic;
@@ -29,25 +30,10 @@ namespace Cube.Secure.WinForms
         string currentDirectory = string.Empty;
         List<string> paths = new List<string>();
         List<string> selectedPaths = new List<string>();
-        BackgroundWorker worker;
         public Form1()
         {
             InitializeComponent();
-            this.worker = new BackgroundWorker();
-            this.worker.ProgressChanged += Worker_ProgressChanged;
-            //this.worker.RunWorkerCompleted += Worker_RunWorkerCompleted;
-            this.worker.WorkerReportsProgress = true;
             this.StartPosition = FormStartPosition.CenterScreen;
-        }
-
-        //private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        //{
-        //    this.toolStripProgressBar.Value = 0;
-        //}
-
-        private void Worker_ProgressChanged(object sender, ProgressChangedEventArgs e)
-        {
-            this.toolStripProgressBar.Value = e.ProgressPercentage;
         }
 
         private void openDirectory_Click(object sender, EventArgs e)
@@ -112,28 +98,35 @@ namespace Cube.Secure.WinForms
                 var result = passwordDialog.ShowDialog();
                 if (result == DialogResult.OK && !string.IsNullOrEmpty(passwordDialog.Password))
                 {
-                    var password = passwordDialog.Password;
-                    var allFilePaths = this.GetAllFilePaths();
-
-                    DoWorkEventHandler encrypt = (object sender, DoWorkEventArgs e) => 
+                    var bw = new BackgroundWorker();
+                    bw.WorkerReportsProgress = true;
+                    bw.RunWorkerCompleted += (object s, RunWorkerCompletedEventArgs e) =>
                     {
+                        this.toolStripProgressBar.Value = 100;
+                        bw.Dispose();
+                    };
+                    bw.ProgressChanged += (object s, ProgressChangedEventArgs e) =>
+                    {
+                        this.toolStripProgressBar.Value = e.ProgressPercentage;
+                    };
+                    bw.DoWork += (object s, DoWorkEventArgs e) =>
+                    {
+                        var password = passwordDialog.Password;
+                        var allFilePaths = this.GetAllFilePaths();
+
                         for (int i = 0; i < allFilePaths.Count; i++)
                         {
                             var file = File.ReadAllBytes(allFilePaths[i]);
                             var encryptedFile = this.Aes.Encrypt(file, password);
                             File.WriteAllBytes(allFilePaths[i], encryptedFile);
-                            this.worker.ReportProgress((int)(((float)i / allFilePaths.Count) * 100.0f));
-                            this.toolStripProgressBar.Increment(5);
+                            bw.ReportProgress((int)(((float)i / allFilePaths.Count) * 100.0f));
                         }
                     };
 
-                    this.worker.DoWork += encrypt;
-                    this.worker.RunWorkerAsync();
-                    this.worker.DoWork -= encrypt;
+                    bw.RunWorkerAsync();
                 }
             }
         }
-
 
         private void decrypt_Click(object sender, EventArgs e)
         {
@@ -142,18 +135,32 @@ namespace Cube.Secure.WinForms
             var result = passwordDialog.ShowDialog();
             if (result == DialogResult.OK && !string.IsNullOrEmpty(passwordDialog.Password))
             {
-                var password = passwordDialog.Password;
-                var allFilePaths = this.GetAllFilePaths();
-
-                Task.Run(() =>
+                var bw = new BackgroundWorker();
+                bw.WorkerReportsProgress = true;
+                bw.RunWorkerCompleted += (object s, RunWorkerCompletedEventArgs e) =>
                 {
-                    foreach (var path in allFilePaths)
+                    this.toolStripProgressBar.Value = 100;
+                    bw.Dispose();
+                };
+                bw.ProgressChanged += (object s, ProgressChangedEventArgs e) =>
+                {
+                    this.toolStripProgressBar.Value = e.ProgressPercentage;
+                };
+                bw.DoWork += (object s, DoWorkEventArgs e) =>
+                {
+                    var password = passwordDialog.Password;
+                    var allFilePaths = this.GetAllFilePaths();
+
+                    for (int i = 0; i < allFilePaths.Count; i++)
                     {
-                        var file = File.ReadAllBytes(path);
+                        var file = File.ReadAllBytes(allFilePaths[i]);
                         var decryptedFile = this.Aes.Decrypt(file, password);
-                        File.WriteAllBytes(path, decryptedFile);
+                        File.WriteAllBytes(allFilePaths[i], decryptedFile);
+                        bw.ReportProgress((int)(((float)i / allFilePaths.Count) * 100.0f));
                     }
-                });
+                };
+
+                bw.RunWorkerAsync();
             }
         }
 
@@ -164,22 +171,35 @@ namespace Cube.Secure.WinForms
             var result = passwordDialog.ShowDialog();
             if (result == DialogResult.OK && !string.IsNullOrEmpty(passwordDialog.Password))
             {
-                var password = passwordDialog.Password;
-                var allFilePaths = this.GetAllFilePaths();
-
-                Task.Run(() =>
+                var bw = new BackgroundWorker();
+                bw.WorkerReportsProgress = true;
+                bw.RunWorkerCompleted += (object s, RunWorkerCompletedEventArgs e) =>
                 {
-                    foreach (var path in allFilePaths)
-                    {
-                        var file = File.ReadAllBytes(path);
-                        var encryptedFile = this.Aes.Encrypt(file, password);
-                        var encryptedFileName = this.GetEncryptedFileName(path, password);
-                        File.WriteAllBytes(encryptedFileName, encryptedFile);
-                        File.Delete(path);
-                    }
-                });
+                    this.toolStripProgressBar.Value = 100;
+                    this.RefreashFileList(this.currentDirectory);
+                    bw.Dispose();
+                };
+                bw.ProgressChanged += (object s, ProgressChangedEventArgs e) =>
+                {
+                    this.toolStripProgressBar.Value = e.ProgressPercentage;
+                };
+                bw.DoWork += (object s, DoWorkEventArgs e) =>
+                {
+                    var password = passwordDialog.Password;
+                    var allFilePaths = this.GetAllFilePaths();
 
-                this.RefreashFileList(this.currentDirectory);
+                    for (int i = 0; i < allFilePaths.Count; i++)
+                    {
+                        var file = File.ReadAllBytes(allFilePaths[i]);
+                        var encryptedFile = this.Aes.Encrypt(file, password);
+                        var encryptedFileName = this.GetEncryptedFileName(allFilePaths[i], password);
+                        File.WriteAllBytes(encryptedFileName, encryptedFile);
+                        File.Delete(allFilePaths[i]);
+                        bw.ReportProgress((int)(((float)i / allFilePaths.Count) * 100.0f));
+                    }
+                };
+
+                bw.RunWorkerAsync();
             }
         }
 
@@ -190,27 +210,41 @@ namespace Cube.Secure.WinForms
             var result = passwordDialog.ShowDialog();
             if (result == DialogResult.OK && !string.IsNullOrEmpty(passwordDialog.Password))
             {
-                var password = passwordDialog.Password;
-                var allFilePaths = this.GetAllFilePaths();
-
-                Task.Run(() =>
+                var bw = new BackgroundWorker();
+                bw.WorkerReportsProgress = true;
+                bw.RunWorkerCompleted += (object s, RunWorkerCompletedEventArgs e) =>
                 {
-                    foreach (var path in allFilePaths)
-                    {
-                        var file = File.ReadAllBytes(path);
-                        var decryptedFile = this.Aes.Decrypt(file, password);
-                        var decryptedFileName = this.GetDecryptedFileName(path, password);
-                        File.WriteAllBytes(decryptedFileName, decryptedFile);
-                        File.Delete(path);
-                    }
-                });
+                    this.toolStripProgressBar.Value = 100;
+                    this.RefreashFileList(this.currentDirectory);
+                    bw.Dispose();
+                };
+                bw.ProgressChanged += (object s, ProgressChangedEventArgs e) =>
+                {
+                    this.toolStripProgressBar.Value = e.ProgressPercentage;
+                };
+                bw.DoWork += (object s, DoWorkEventArgs e) =>
+                {
+                    var password = passwordDialog.Password;
+                    var allFilePaths = this.GetAllFilePaths();
 
-                this.RefreashFileList(this.currentDirectory);
+                    for (int i = 0; i < allFilePaths.Count; i++)
+                    {
+                        var file = File.ReadAllBytes(allFilePaths[i]);
+                        var decryptedFile = this.Aes.Decrypt(file, password);
+                        var decryptedFileName = this.GetDecryptedFileName(allFilePaths[i], password);
+                        File.WriteAllBytes(decryptedFileName, decryptedFile);
+                        File.Delete(allFilePaths[i]);
+                        bw.ReportProgress((int)(((float)i / allFilePaths.Count) * 100.0f));
+                    }
+                };
+
+                bw.RunWorkerAsync();
             }
         }
 
         private void listView_Click(object sender, EventArgs e)
         {
+            this.toolStripProgressBar.Value = 0;
             this.selectedPaths.Clear();
             var names = new List<string>();
             foreach (int index in this.listView.SelectedIndices)

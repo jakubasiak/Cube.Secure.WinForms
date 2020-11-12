@@ -122,15 +122,18 @@ namespace Cube.Secure.WinForms
             // toolStripProgressBar
             // 
             this.toolStripProgressBar.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolStripProgressBar.Margin = new System.Windows.Forms.Padding(10, 3, 1, 3);
+            this.toolStripProgressBar.MarqueeAnimationSpeed = 10;
             this.toolStripProgressBar.Name = "toolStripProgressBar";
             this.toolStripProgressBar.Size = new System.Drawing.Size(100, 18);
-            this.toolStripProgressBar.Step = 1;
             // 
             // SelectedItems
             // 
-            this.SelectedItems.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right)));
+            this.SelectedItems.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right;
+            this.SelectedItems.Margin = new System.Windows.Forms.Padding(10, 3, 1, 2);
             this.SelectedItems.Name = "SelectedItems";
-            this.SelectedItems.Size = new System.Drawing.Size(67, 19);
+            this.SelectedItems.Padding = new System.Windows.Forms.Padding(0, 0, 10, 0);
+            this.SelectedItems.Size = new System.Drawing.Size(77, 19);
             this.SelectedItems.Text = "Selected: 0";
             // 
             // ItemNames
