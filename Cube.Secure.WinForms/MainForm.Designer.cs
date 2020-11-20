@@ -4,7 +4,7 @@ using System.IO;
 
 namespace Cube.Secure.WinForms
 {
-    partial class Form1
+    partial class MainForm
     {
         /// <summary>
         ///  Required designer variable.
@@ -33,6 +33,7 @@ namespace Cube.Secure.WinForms
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.button1 = new System.Windows.Forms.Button();
             this.encryptBtn = new System.Windows.Forms.Button();
             this.decryptBtn = new System.Windows.Forms.Button();
@@ -52,12 +53,15 @@ namespace Cube.Secure.WinForms
             this.decryptMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.encryptWithNamesMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.decryptWithNamesMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.encryptTextMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.decryptTextMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pathTextBox = new System.Windows.Forms.TextBox();
             this.encryptWithNamesBtn = new System.Windows.Forms.Button();
             this.decryptWithNamesBtn = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.decryptTextBtn = new System.Windows.Forms.Button();
             this.encryptTextBtn = new System.Windows.Forms.Button();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.statusStrip.SuspendLayout();
             this.menuStrip.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -65,6 +69,7 @@ namespace Cube.Secure.WinForms
             // 
             // button1
             // 
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button1.Location = new System.Drawing.Point(644, 43);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(150, 25);
@@ -95,6 +100,9 @@ namespace Cube.Secure.WinForms
             // 
             // listView
             // 
+            this.listView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.listView.HideSelection = false;
             this.listView.LargeImageList = this.fileImageList;
             this.listView.Location = new System.Drawing.Point(13, 74);
@@ -192,10 +200,12 @@ namespace Cube.Secure.WinForms
             this.encryptMenuItem,
             this.decryptMenuItem,
             this.encryptWithNamesMenuItem,
-            this.decryptWithNamesMenuItem});
+            this.decryptWithNamesMenuItem,
+            this.encryptTextMenuItem,
+            this.decryptTextMenuItem});
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(92, 20);
-            this.toolStripMenuItem2.Text = "Cryptography";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(39, 20);
+            this.toolStripMenuItem2.Text = "AES";
             // 
             // encryptMenuItem
             // 
@@ -225,8 +235,24 @@ namespace Cube.Secure.WinForms
             this.decryptWithNamesMenuItem.Text = "Decrypt with file names";
             this.decryptWithNamesMenuItem.Click += new System.EventHandler(this.decryptWithNamesBtn_Click);
             // 
+            // encryptTextMenuItem
+            // 
+            this.encryptTextMenuItem.Name = "encryptTextMenuItem";
+            this.encryptTextMenuItem.Size = new System.Drawing.Size(198, 22);
+            this.encryptTextMenuItem.Text = "Encrypt text";
+            this.encryptTextMenuItem.Click += new System.EventHandler(this.encryptTextBtn_Click);
+            // 
+            // decryptTextMenuItem
+            // 
+            this.decryptTextMenuItem.Name = "decryptTextMenuItem";
+            this.decryptTextMenuItem.Size = new System.Drawing.Size(198, 22);
+            this.decryptTextMenuItem.Text = "Decrypt text";
+            this.decryptTextMenuItem.Click += new System.EventHandler(this.decryptTextBtn_Click);
+            // 
             // pathTextBox
             // 
+            this.pathTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.pathTextBox.Enabled = false;
             this.pathTextBox.Location = new System.Drawing.Point(13, 43);
             this.pathTextBox.Name = "pathTextBox";
@@ -255,6 +281,7 @@ namespace Cube.Secure.WinForms
             // 
             // groupBox1
             // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.decryptTextBtn);
             this.groupBox1.Controls.Add(this.encryptTextBtn);
             this.groupBox1.Controls.Add(this.decryptWithNamesBtn);
@@ -288,17 +315,29 @@ namespace Cube.Secure.WinForms
             this.encryptTextBtn.UseVisualStyleBackColor = true;
             this.encryptTextBtn.Click += new System.EventHandler(this.encryptTextBtn_Click);
             // 
-            // Form1
+            // groupBox2
+            // 
+            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox2.Location = new System.Drawing.Point(638, 290);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(164, 271);
+            this.groupBox2.TabIndex = 8;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "RSA";
+            // 
+            // MainForm
             // 
             this.ClientSize = new System.Drawing.Size(812, 600);
+            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.pathTextBox);
             this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.menuStrip);
             this.Controls.Add(this.listView);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip;
-            this.Name = "Form1";
+            this.Name = "MainForm";
             this.statusStrip.ResumeLayout(false);
             this.statusStrip.PerformLayout();
             this.menuStrip.ResumeLayout(false);
@@ -336,6 +375,9 @@ namespace Cube.Secure.WinForms
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button decryptTextBtn;
         private System.Windows.Forms.Button encryptTextBtn;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.ToolStripMenuItem encryptTextMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem decryptTextMenuItem;
     }
 }
 

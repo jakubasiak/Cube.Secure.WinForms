@@ -13,7 +13,7 @@ using Cube.Secure.WinForms.Logic;
 
 namespace Cube.Secure.WinForms
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
         private AES aes;
         public AES Aes
@@ -30,7 +30,7 @@ namespace Cube.Secure.WinForms
         string currentDirectory = string.Empty;
         List<string> paths = new List<string>();
         List<string> selectedPaths = new List<string>();
-        public Form1()
+        public MainForm()
         {
             InitializeComponent();
             this.StartPosition = FormStartPosition.CenterScreen;

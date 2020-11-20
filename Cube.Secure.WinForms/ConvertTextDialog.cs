@@ -61,5 +61,10 @@ namespace Cube.Secure.WinForms
             }
 
         }
+
+        private void copyTextBtn_Click(object sender, EventArgs e)
+        {
+            System.Windows.Forms.Clipboard.SetText(this.richTextBox1.Text);
+        }
     }
 }
