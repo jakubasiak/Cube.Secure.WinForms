@@ -15,10 +15,10 @@ namespace Cube.Secure.WinForms
             get { return this.passwordTextBox.Text; }
         }
 
-        public PasswordDialog(string actionName)
+        public PasswordDialog(ActionType actionType)
         {
             InitializeComponent();
-            this.actionBtn.Text = actionName;
+            this.actionBtn.Text = actionType == ActionType.Encrypt ? "Encrypt" : "Decrypt";
             this.actionBtn.Focus();
         }
 

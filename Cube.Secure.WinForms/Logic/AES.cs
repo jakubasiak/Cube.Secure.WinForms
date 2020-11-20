@@ -6,14 +6,8 @@ using System.Text;
 
 namespace Cube.Secure.WinForms.Logic
 {
-    public class AES
+    public partial class AES : ICryptoProvider
     {
-        public enum Process
-        {
-            Encryption,
-            Decryptopn
-        }
-
         private readonly AesCryptoServiceProvider aes;
 
         public AES()
@@ -22,8 +16,14 @@ namespace Cube.Secure.WinForms.Logic
             this.aes.KeySize = 256;
             this.aes.BlockSize = 128;
         }
+        public AES(AESKeySize keySize)
+        {
+            this.aes = new AesCryptoServiceProvider();
+            this.aes.KeySize = (int)keySize;
+        }
 
-        public byte[] Encrypt(byte[] plain, string password, Process process = Process.Encryption)
+
+        public byte[] ConvertFile(byte[] plain, string password, AESProcess process)
         {
             try
             {
@@ -34,7 +34,7 @@ namespace Cube.Secure.WinForms.Logic
                         this.aes.Key = pass.GetBytes(this.aes.KeySize / 8);
                         this.aes.IV = pass.GetBytes(this.aes.BlockSize / 8);
 
-                        var proc = (process == Process.Encryption) ? this.aes.CreateEncryptor() : this.aes.CreateDecryptor();
+                        var proc = (process == AESProcess.Encryption) ? this.aes.CreateEncryptor() : this.aes.CreateDecryptor();
                         using (var crypto = new CryptoStream(stream, proc, CryptoStreamMode.Write))
                         {
                             crypto.Write(plain, 0, plain.Length);
@@ -53,9 +53,28 @@ namespace Cube.Secure.WinForms.Logic
             }
         }
 
+        public byte[] Encrypt(byte[] encrypted, string password)
+        {
+            return this.ConvertFile(encrypted, password, AESProcess.Encryption);
+        }
+
         public byte[] Decrypt(byte[] encrypted, string password)
         {
-            return this.Encrypt(encrypted, password, Process.Decryptopn);
+            return this.ConvertFile(encrypted, password, AESProcess.Decryptopn);
+        }
+
+        public string EncryptString(string plainText, string password)
+        {
+            var data = Encoding.Unicode.GetBytes(plainText);
+            var cypher = this.ConvertFile(data, password, AESProcess.Encryption);
+            return Convert.ToBase64String(cypher);
+        }
+
+        public string DecryptString(string cypherText, string password)
+        {
+            var data = Convert.FromBase64String(cypherText);
+            var plainText = this.ConvertFile(data, password, AESProcess.Decryptopn);
+            return Encoding.Unicode.GetString(plainText);
         }
 
         private byte[] GenerateSalt(int size, string password)

@@ -93,7 +93,7 @@ namespace Cube.Secure.WinForms
         {
             if (this.selectedPaths.Any())
             {
-                PasswordDialog passwordDialog = new PasswordDialog("Encypt");
+                PasswordDialog passwordDialog = new PasswordDialog(ActionType.Encrypt);
                 passwordDialog.StartPosition = FormStartPosition.CenterParent;
                 var result = passwordDialog.ShowDialog();
                 if (result == DialogResult.OK && !string.IsNullOrEmpty(passwordDialog.Password))
@@ -130,7 +130,7 @@ namespace Cube.Secure.WinForms
 
         private void decrypt_Click(object sender, EventArgs e)
         {
-            PasswordDialog passwordDialog = new PasswordDialog("Decrypt");
+            PasswordDialog passwordDialog = new PasswordDialog(ActionType.Decrypt);
             passwordDialog.StartPosition = FormStartPosition.CenterParent;
             var result = passwordDialog.ShowDialog();
             if (result == DialogResult.OK && !string.IsNullOrEmpty(passwordDialog.Password))
@@ -166,7 +166,7 @@ namespace Cube.Secure.WinForms
 
         private void encryptWithNamesBtn_Click(object sender, EventArgs e)
         {
-            PasswordDialog passwordDialog = new PasswordDialog("Encypt");
+            PasswordDialog passwordDialog = new PasswordDialog(ActionType.Encrypt);
             passwordDialog.StartPosition = FormStartPosition.CenterParent;
             var result = passwordDialog.ShowDialog();
             if (result == DialogResult.OK && !string.IsNullOrEmpty(passwordDialog.Password))
@@ -205,7 +205,7 @@ namespace Cube.Secure.WinForms
 
         private void decryptWithNamesBtn_Click(object sender, EventArgs e)
         {
-            PasswordDialog passwordDialog = new PasswordDialog("Decrypt");
+            PasswordDialog passwordDialog = new PasswordDialog(ActionType.Decrypt);
             passwordDialog.StartPosition = FormStartPosition.CenterParent;
             var result = passwordDialog.ShowDialog();
             if (result == DialogResult.OK && !string.IsNullOrEmpty(passwordDialog.Password))
@@ -296,6 +296,20 @@ namespace Cube.Secure.WinForms
             var decryptedFileName = Encoding.UTF8.GetString(bytesFileName);
 
             return filePath + Path.DirectorySeparatorChar + decryptedFileName;
+        }
+
+        private void encryptTextBtn_Click(object sender, EventArgs e)
+        {
+            ConvertTextDialog convertTextDialog = new ConvertTextDialog(ActionType.Encrypt, this.Aes);
+            convertTextDialog.StartPosition = FormStartPosition.CenterParent;
+            convertTextDialog.ShowDialog();
+        }
+
+        private void decryptTextBtn_Click(object sender, EventArgs e)
+        {
+            ConvertTextDialog convertTextDialog = new ConvertTextDialog(ActionType.Decrypt, this.Aes);
+            convertTextDialog.StartPosition = FormStartPosition.CenterParent;
+            convertTextDialog.ShowDialog();
         }
 
         private void exitMenuItem_Click(object sender, EventArgs e)
