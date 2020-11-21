@@ -45,7 +45,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.richTextBox1.Location = new System.Drawing.Point(12, 30);
             this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(418, 301);
+            this.richTextBox1.Size = new System.Drawing.Size(422, 298);
             this.richTextBox1.TabIndex = 0;
             this.richTextBox1.Text = "";
             // 
@@ -53,9 +53,9 @@
             // 
             this.passwordTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.passwordTextBox.Location = new System.Drawing.Point(12, 360);
+            this.passwordTextBox.Location = new System.Drawing.Point(12, 357);
             this.passwordTextBox.Name = "passwordTextBox";
-            this.passwordTextBox.Size = new System.Drawing.Size(416, 23);
+            this.passwordTextBox.Size = new System.Drawing.Size(420, 23);
             this.passwordTextBox.TabIndex = 1;
             this.passwordTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.passwordTextBox_KeyDown);
             // 
@@ -63,7 +63,7 @@
             // 
             this.closeBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.closeBtn.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.closeBtn.Location = new System.Drawing.Point(274, 392);
+            this.closeBtn.Location = new System.Drawing.Point(278, 389);
             this.closeBtn.Name = "closeBtn";
             this.closeBtn.Size = new System.Drawing.Size(105, 25);
             this.closeBtn.TabIndex = 3;
@@ -73,7 +73,7 @@
             // actionBtn
             // 
             this.actionBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.actionBtn.Location = new System.Drawing.Point(52, 392);
+            this.actionBtn.Location = new System.Drawing.Point(52, 389);
             this.actionBtn.Name = "actionBtn";
             this.actionBtn.Size = new System.Drawing.Size(105, 25);
             this.actionBtn.TabIndex = 2;
@@ -85,7 +85,7 @@
             // 
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 340);
+            this.label1.Location = new System.Drawing.Point(12, 337);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(57, 15);
             this.label1.TabIndex = 4;
@@ -103,7 +103,7 @@
             // copyTextBtn
             // 
             this.copyTextBtn.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.copyTextBtn.Location = new System.Drawing.Point(163, 392);
+            this.copyTextBtn.Location = new System.Drawing.Point(165, 389);
             this.copyTextBtn.Name = "copyTextBtn";
             this.copyTextBtn.Size = new System.Drawing.Size(105, 25);
             this.copyTextBtn.TabIndex = 3;
@@ -115,7 +115,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(440, 424);
+            this.ClientSize = new System.Drawing.Size(444, 421);
             this.Controls.Add(this.copyTextBtn);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);

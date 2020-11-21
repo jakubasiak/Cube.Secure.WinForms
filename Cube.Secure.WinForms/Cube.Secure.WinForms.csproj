@@ -8,6 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="shortid" Version="3.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="Assets\back.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

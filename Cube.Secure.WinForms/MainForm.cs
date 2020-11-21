@@ -316,5 +316,12 @@ namespace Cube.Secure.WinForms
         {
             Application.Exit();
         }
+
+        private void generateKeysBtn_Click(object sender, EventArgs e)
+        {
+            GenerateKeysDialog generateKeysDialog = new GenerateKeysDialog();
+            generateKeysDialog.StartPosition = FormStartPosition.CenterParent;
+            generateKeysDialog.ShowDialog();
+        }
     }
 }

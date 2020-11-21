@@ -62,9 +62,11 @@ namespace Cube.Secure.WinForms
             this.decryptTextBtn = new System.Windows.Forms.Button();
             this.encryptTextBtn = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.generateKeysBtn = new System.Windows.Forms.Button();
             this.statusStrip.SuspendLayout();
             this.menuStrip.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // button1
@@ -318,12 +320,23 @@ namespace Cube.Secure.WinForms
             // groupBox2
             // 
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox2.Controls.Add(this.generateKeysBtn);
             this.groupBox2.Location = new System.Drawing.Point(638, 290);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(164, 271);
             this.groupBox2.TabIndex = 8;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "RSA";
+            // 
+            // generateKeysBtn
+            // 
+            this.generateKeysBtn.Location = new System.Drawing.Point(6, 22);
+            this.generateKeysBtn.Name = "generateKeysBtn";
+            this.generateKeysBtn.Size = new System.Drawing.Size(150, 25);
+            this.generateKeysBtn.TabIndex = 1;
+            this.generateKeysBtn.Text = "Generate keys";
+            this.generateKeysBtn.UseVisualStyleBackColor = true;
+            this.generateKeysBtn.Click += new System.EventHandler(this.generateKeysBtn_Click);
             // 
             // MainForm
             // 
@@ -343,6 +356,7 @@ namespace Cube.Secure.WinForms
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
             this.groupBox1.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -378,6 +392,7 @@ namespace Cube.Secure.WinForms
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.ToolStripMenuItem encryptTextMenuItem;
         private System.Windows.Forms.ToolStripMenuItem decryptTextMenuItem;
+        private System.Windows.Forms.Button generateKeysBtn;
     }
 }
 
