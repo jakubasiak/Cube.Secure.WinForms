@@ -47,8 +47,8 @@ namespace Cube.Secure.WinForms
             {
                 if (!string.IsNullOrEmpty(saveKeysFileDialog.FileName))
                 {
-                    File.WriteAllText(this.AddSuffix(Path.GetFullPath(saveKeysFileDialog.FileName), "_Public_Key"), this.publicKeyRichTextBox.Text);
-                    File.WriteAllText(this.AddSuffix(Path.GetFullPath(saveKeysFileDialog.FileName), "_Private_Key"), this.privateKeyRichTextBox.Text);
+                    File.WriteAllText(this.AddSuffix(Path.GetFullPath(saveKeysFileDialog.FileName), "_Public_Key"), this.publicKeyRichTextBox.Text, Encoding.ASCII);
+                    File.WriteAllText(this.AddSuffix(Path.GetFullPath(saveKeysFileDialog.FileName), "_Private_Key"), this.privateKeyRichTextBox.Text, Encoding.ASCII);
                 }
             }
         }

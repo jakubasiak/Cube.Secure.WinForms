@@ -11,41 +11,39 @@ namespace Cube.Secure.WinForms.Logic
 
         public RSA()
         {
-            this.rsa = new RSACryptoServiceProvider();
-            this.rsa.KeySize = 2048;
+            this.rsa = new RSACryptoServiceProvider(2048);
         }
 
         public RSA(RSAKeySize keySize)
         {
-            this.rsa = new RSACryptoServiceProvider();
-            this.rsa.KeySize = (int)keySize;
+            this.rsa = new RSACryptoServiceProvider((int)keySize);
         }
 
         public byte[] Decrypt(byte[] encrypted, string key)
         {
             this.rsa.FromXmlString(key);
-            return this.rsa.Decrypt(encrypted, true);
+            return this.rsa.Decrypt(encrypted, false);
         }
 
-        public string DecryptString(string cypherText, string key)
+        public string DecryptString(string cypherText, string key, bool withCompressin)
         {
             this.rsa.FromXmlString(key);
             var data = Convert.FromBase64String(cypherText);
             var plainText = this.rsa.Decrypt(data, false);
-            return Encoding.Unicode.GetString(plainText);
+            return withCompressin ? ZipHelper.Unzip(plainText) : Encoding.Unicode.GetString(plainText);
         }
 
         public byte[] Encrypt(byte[] encrypted, string key)
         {
             this.rsa.FromXmlString(key);
-            return this.rsa.Encrypt(encrypted, true);
+            return this.rsa.Encrypt(encrypted, false);
         }
 
-        public string EncryptString(string plainText, string key)
+        public string EncryptString(string plainText, string key, bool withCompressin)
         {
             this.rsa.FromXmlString(key);
-            var data = Encoding.Unicode.GetBytes(plainText);
-            var cypher = this.rsa.Encrypt(data, true);
+            var data = withCompressin ? ZipHelper.Zip(plainText) : Encoding.Unicode.GetBytes(plainText);
+            var cypher = this.rsa.Encrypt(data, false);
             return Convert.ToBase64String(cypher);
         }
 

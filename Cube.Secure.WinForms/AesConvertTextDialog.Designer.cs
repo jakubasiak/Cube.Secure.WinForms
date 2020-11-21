@@ -1,6 +1,6 @@
 ﻿namespace Cube.Secure.WinForms
 {
-    partial class ConvertTextDialog
+    partial class AesConvertTextDialog
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ConvertTextDialog));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AesConvertTextDialog));
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.passwordTextBox = new System.Windows.Forms.TextBox();
             this.closeBtn = new System.Windows.Forms.Button();
@@ -36,6 +36,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.copyTextBtn = new System.Windows.Forms.Button();
+            this.pesteTextBtn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // richTextBox1
@@ -45,7 +46,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.richTextBox1.Location = new System.Drawing.Point(12, 30);
             this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(422, 298);
+            this.richTextBox1.Size = new System.Drawing.Size(462, 338);
             this.richTextBox1.TabIndex = 0;
             this.richTextBox1.Text = "";
             // 
@@ -53,9 +54,9 @@
             // 
             this.passwordTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.passwordTextBox.Location = new System.Drawing.Point(12, 357);
+            this.passwordTextBox.Location = new System.Drawing.Point(12, 397);
             this.passwordTextBox.Name = "passwordTextBox";
-            this.passwordTextBox.Size = new System.Drawing.Size(420, 23);
+            this.passwordTextBox.Size = new System.Drawing.Size(460, 23);
             this.passwordTextBox.TabIndex = 1;
             this.passwordTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.passwordTextBox_KeyDown);
             // 
@@ -63,9 +64,9 @@
             // 
             this.closeBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.closeBtn.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.closeBtn.Location = new System.Drawing.Point(278, 389);
+            this.closeBtn.Location = new System.Drawing.Point(362, 426);
             this.closeBtn.Name = "closeBtn";
-            this.closeBtn.Size = new System.Drawing.Size(105, 25);
+            this.closeBtn.Size = new System.Drawing.Size(110, 25);
             this.closeBtn.TabIndex = 3;
             this.closeBtn.Text = "Close";
             this.closeBtn.UseVisualStyleBackColor = true;
@@ -73,9 +74,9 @@
             // actionBtn
             // 
             this.actionBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.actionBtn.Location = new System.Drawing.Point(52, 389);
+            this.actionBtn.Location = new System.Drawing.Point(246, 426);
             this.actionBtn.Name = "actionBtn";
-            this.actionBtn.Size = new System.Drawing.Size(105, 25);
+            this.actionBtn.Size = new System.Drawing.Size(110, 25);
             this.actionBtn.TabIndex = 2;
             this.actionBtn.Text = "Encrypt";
             this.actionBtn.UseVisualStyleBackColor = true;
@@ -85,7 +86,7 @@
             // 
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 337);
+            this.label1.Location = new System.Drawing.Point(12, 377);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(57, 15);
             this.label1.TabIndex = 4;
@@ -103,19 +104,31 @@
             // copyTextBtn
             // 
             this.copyTextBtn.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.copyTextBtn.Location = new System.Drawing.Point(165, 389);
+            this.copyTextBtn.Location = new System.Drawing.Point(12, 426);
             this.copyTextBtn.Name = "copyTextBtn";
-            this.copyTextBtn.Size = new System.Drawing.Size(105, 25);
+            this.copyTextBtn.Size = new System.Drawing.Size(110, 25);
             this.copyTextBtn.TabIndex = 3;
             this.copyTextBtn.Text = "Copy text";
             this.copyTextBtn.UseVisualStyleBackColor = true;
             this.copyTextBtn.Click += new System.EventHandler(this.copyTextBtn_Click);
             // 
-            // ConvertTextDialog
+            // pesteTextBtn
+            // 
+            this.pesteTextBtn.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.pesteTextBtn.Location = new System.Drawing.Point(128, 426);
+            this.pesteTextBtn.Name = "pesteTextBtn";
+            this.pesteTextBtn.Size = new System.Drawing.Size(110, 25);
+            this.pesteTextBtn.TabIndex = 6;
+            this.pesteTextBtn.Text = "Peste text";
+            this.pesteTextBtn.UseVisualStyleBackColor = true;
+            this.pesteTextBtn.Click += new System.EventHandler(this.pesteTextBtn_Click);
+            // 
+            // AesConvertTextDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(444, 421);
+            this.ClientSize = new System.Drawing.Size(484, 461);
+            this.Controls.Add(this.pesteTextBtn);
             this.Controls.Add(this.copyTextBtn);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -124,7 +137,8 @@
             this.Controls.Add(this.passwordTextBox);
             this.Controls.Add(this.richTextBox1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "ConvertTextDialog";
+            this.MinimumSize = new System.Drawing.Size(500, 500);
+            this.Name = "AesConvertTextDialog";
             this.Text = "Enter text and password";
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -140,5 +154,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button copyTextBtn;
+        private System.Windows.Forms.Button pesteTextBtn;
     }
 }

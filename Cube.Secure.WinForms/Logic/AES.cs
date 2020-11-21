@@ -63,14 +63,14 @@ namespace Cube.Secure.WinForms.Logic
             return this.ConvertFile(encrypted, password, AESProcess.Decryptopn);
         }
 
-        public string EncryptString(string plainText, string password)
+        public string EncryptString(string plainText, string password, bool withCompression)
         {
             var data = Encoding.Unicode.GetBytes(plainText);
             var cypher = this.ConvertFile(data, password, AESProcess.Encryption);
             return Convert.ToBase64String(cypher);
         }
 
-        public string DecryptString(string cypherText, string password)
+        public string DecryptString(string cypherText, string password, bool withCompression)
         {
             var data = Convert.FromBase64String(cypherText);
             var plainText = this.ConvertFile(data, password, AESProcess.Decryptopn);

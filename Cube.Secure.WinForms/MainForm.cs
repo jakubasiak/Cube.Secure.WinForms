@@ -27,6 +27,20 @@ namespace Cube.Secure.WinForms
                 return this.aes;
             }
         }
+
+        private RSA rsa;
+        public RSA Rsa
+        {
+            get
+            {
+                if (this.rsa == null)
+                {
+                    this.rsa = new RSA();
+                }
+                return this.rsa;
+            }
+        }
+
         string currentDirectory = string.Empty;
         List<string> paths = new List<string>();
         List<string> selectedPaths = new List<string>();
@@ -192,7 +206,7 @@ namespace Cube.Secure.WinForms
                     {
                         var file = File.ReadAllBytes(allFilePaths[i]);
                         var encryptedFile = this.Aes.Encrypt(file, password);
-                        var encryptedFileName = this.GetEncryptedFileName(allFilePaths[i], password);
+                        var encryptedFileName = this.GetEncryptedFileName(allFilePaths[i]);
                         File.WriteAllBytes(encryptedFileName, encryptedFile);
                         File.Delete(allFilePaths[i]);
                         bw.ReportProgress((int)(((float)i / allFilePaths.Count) * 100.0f));
@@ -231,7 +245,7 @@ namespace Cube.Secure.WinForms
                     {
                         var file = File.ReadAllBytes(allFilePaths[i]);
                         var decryptedFile = this.Aes.Decrypt(file, password);
-                        var decryptedFileName = this.GetDecryptedFileName(allFilePaths[i], password);
+                        var decryptedFileName = this.GetDecryptedFileName(allFilePaths[i]);
                         File.WriteAllBytes(decryptedFileName, decryptedFile);
                         File.Delete(allFilePaths[i]);
                         bw.ReportProgress((int)(((float)i / allFilePaths.Count) * 100.0f));
@@ -278,7 +292,7 @@ namespace Cube.Secure.WinForms
             return allFilePaths;
         }
 
-        private string GetEncryptedFileName(string path, string password)
+        private string GetEncryptedFileName(string path)
         {
             var filePath = Path.GetDirectoryName(path);
             var fileName = Path.GetFileName(path);
@@ -288,7 +302,7 @@ namespace Cube.Secure.WinForms
             return filePath + Path.DirectorySeparatorChar + encryptedFileName;
         }
 
-        private string GetDecryptedFileName(string path, string password)
+        private string GetDecryptedFileName(string path)
         {
             var filePath = Path.GetDirectoryName(path);
             var fileName = Path.GetFileName(path);
@@ -300,14 +314,14 @@ namespace Cube.Secure.WinForms
 
         private void encryptTextBtn_Click(object sender, EventArgs e)
         {
-            ConvertTextDialog convertTextDialog = new ConvertTextDialog(ActionType.Encrypt, this.Aes);
+            AesConvertTextDialog convertTextDialog = new AesConvertTextDialog(ActionType.Encrypt, this.Aes);
             convertTextDialog.StartPosition = FormStartPosition.CenterParent;
             convertTextDialog.ShowDialog();
         }
 
         private void decryptTextBtn_Click(object sender, EventArgs e)
         {
-            ConvertTextDialog convertTextDialog = new ConvertTextDialog(ActionType.Decrypt, this.Aes);
+            AesConvertTextDialog convertTextDialog = new AesConvertTextDialog(ActionType.Decrypt, this.Aes);
             convertTextDialog.StartPosition = FormStartPosition.CenterParent;
             convertTextDialog.ShowDialog();
         }
@@ -322,6 +336,20 @@ namespace Cube.Secure.WinForms
             GenerateKeysDialog generateKeysDialog = new GenerateKeysDialog();
             generateKeysDialog.StartPosition = FormStartPosition.CenterParent;
             generateKeysDialog.ShowDialog();
+        }
+
+        private void encryptTextRsaBtn_Click(object sender, EventArgs e)
+        {
+            RsaConvertTextDialog rsaConvertTextDialog = new RsaConvertTextDialog(ActionType.Encrypt, this.Rsa);
+            rsaConvertTextDialog.StartPosition = FormStartPosition.CenterParent;
+            rsaConvertTextDialog.ShowDialog();
+        }
+
+        private void decryptTextRsaBtn_Click(object sender, EventArgs e)
+        {
+            RsaConvertTextDialog rsaConvertTextDialog = new RsaConvertTextDialog(ActionType.Decrypt, this.Rsa);
+            rsaConvertTextDialog.StartPosition = FormStartPosition.CenterParent;
+            rsaConvertTextDialog.ShowDialog();
         }
     }
 }

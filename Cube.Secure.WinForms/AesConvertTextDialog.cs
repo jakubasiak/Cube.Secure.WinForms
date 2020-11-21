@@ -9,12 +9,12 @@ using System.Windows.Forms;
 
 namespace Cube.Secure.WinForms
 {
-    public partial class ConvertTextDialog : Form
+    public partial class AesConvertTextDialog : Form
     {
         private readonly ActionType actionType;
         private readonly ICryptoProvider cryptoProvider;
 
-        public ConvertTextDialog(ActionType actionType, ICryptoProvider cryptoProvider)
+        public AesConvertTextDialog(ActionType actionType, ICryptoProvider cryptoProvider)
         {
             InitializeComponent();
             this.actionBtn.Text = actionType == ActionType.Encrypt ? "Encrypt" : "Decrypt";
@@ -59,12 +59,16 @@ namespace Cube.Secure.WinForms
             {
                 this.closeBtn.PerformClick();
             }
-
         }
 
         private void copyTextBtn_Click(object sender, EventArgs e)
         {
             System.Windows.Forms.Clipboard.SetText(this.richTextBox1.Text);
+        }
+
+        private void pesteTextBtn_Click(object sender, EventArgs e)
+        {
+            this.richTextBox1.Text = System.Windows.Forms.Clipboard.GetText();
         }
     }
 }

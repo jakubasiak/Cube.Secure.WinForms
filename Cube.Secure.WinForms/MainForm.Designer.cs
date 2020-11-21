@@ -62,6 +62,8 @@ namespace Cube.Secure.WinForms
             this.decryptTextBtn = new System.Windows.Forms.Button();
             this.encryptTextBtn = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.decryptTextRsaBtn = new System.Windows.Forms.Button();
+            this.encryptTextRsaBtn = new System.Windows.Forms.Button();
             this.generateKeysBtn = new System.Windows.Forms.Button();
             this.statusStrip.SuspendLayout();
             this.menuStrip.SuspendLayout();
@@ -320,13 +322,35 @@ namespace Cube.Secure.WinForms
             // groupBox2
             // 
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox2.Controls.Add(this.decryptTextRsaBtn);
+            this.groupBox2.Controls.Add(this.encryptTextRsaBtn);
             this.groupBox2.Controls.Add(this.generateKeysBtn);
             this.groupBox2.Location = new System.Drawing.Point(638, 290);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(164, 271);
+            this.groupBox2.Size = new System.Drawing.Size(164, 118);
             this.groupBox2.TabIndex = 8;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "RSA";
+            // 
+            // decryptTextRsaBtn
+            // 
+            this.decryptTextRsaBtn.Location = new System.Drawing.Point(6, 84);
+            this.decryptTextRsaBtn.Name = "decryptTextRsaBtn";
+            this.decryptTextRsaBtn.Size = new System.Drawing.Size(150, 25);
+            this.decryptTextRsaBtn.TabIndex = 2;
+            this.decryptTextRsaBtn.Text = "Decrypt text";
+            this.decryptTextRsaBtn.UseVisualStyleBackColor = true;
+            this.decryptTextRsaBtn.Click += new System.EventHandler(this.decryptTextRsaBtn_Click);
+            // 
+            // encryptTextRsaBtn
+            // 
+            this.encryptTextRsaBtn.Location = new System.Drawing.Point(6, 53);
+            this.encryptTextRsaBtn.Name = "encryptTextRsaBtn";
+            this.encryptTextRsaBtn.Size = new System.Drawing.Size(150, 25);
+            this.encryptTextRsaBtn.TabIndex = 2;
+            this.encryptTextRsaBtn.Text = "Encrypt text";
+            this.encryptTextRsaBtn.UseVisualStyleBackColor = true;
+            this.encryptTextRsaBtn.Click += new System.EventHandler(this.encryptTextRsaBtn_Click);
             // 
             // generateKeysBtn
             // 
@@ -350,6 +374,7 @@ namespace Cube.Secure.WinForms
             this.Controls.Add(this.listView);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip;
+            this.MinimumSize = new System.Drawing.Size(600, 600);
             this.Name = "MainForm";
             this.statusStrip.ResumeLayout(false);
             this.statusStrip.PerformLayout();
@@ -393,6 +418,8 @@ namespace Cube.Secure.WinForms
         private System.Windows.Forms.ToolStripMenuItem encryptTextMenuItem;
         private System.Windows.Forms.ToolStripMenuItem decryptTextMenuItem;
         private System.Windows.Forms.Button generateKeysBtn;
+        private System.Windows.Forms.Button decryptTextRsaBtn;
+        private System.Windows.Forms.Button encryptTextRsaBtn;
     }
 }
 
