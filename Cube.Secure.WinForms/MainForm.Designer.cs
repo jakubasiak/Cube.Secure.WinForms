@@ -65,6 +65,10 @@ namespace Cube.Secure.WinForms
             this.decryptTextRsaBtn = new System.Windows.Forms.Button();
             this.encryptTextRsaBtn = new System.Windows.Forms.Button();
             this.generateKeysBtn = new System.Windows.Forms.Button();
+            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.generateKeysMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.rsaEncryptTextMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.rsaDecryptTextMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip.SuspendLayout();
             this.menuStrip.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -162,7 +166,8 @@ namespace Cube.Secure.WinForms
             // 
             this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem1,
-            this.toolStripMenuItem2});
+            this.toolStripMenuItem2,
+            this.toolStripMenuItem3});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
             this.menuStrip.Size = new System.Drawing.Size(812, 24);
@@ -362,6 +367,37 @@ namespace Cube.Secure.WinForms
             this.generateKeysBtn.UseVisualStyleBackColor = true;
             this.generateKeysBtn.Click += new System.EventHandler(this.generateKeysBtn_Click);
             // 
+            // toolStripMenuItem3
+            // 
+            this.toolStripMenuItem3.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.generateKeysMenuItem,
+            this.rsaEncryptTextMenuItem,
+            this.rsaDecryptTextMenuItem});
+            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(40, 20);
+            this.toolStripMenuItem3.Text = "RSA";
+            // 
+            // generateKeysMenuItem
+            // 
+            this.generateKeysMenuItem.Name = "generateKeysMenuItem";
+            this.generateKeysMenuItem.Size = new System.Drawing.Size(147, 22);
+            this.generateKeysMenuItem.Text = "Generate keys";
+            this.generateKeysMenuItem.Click += new System.EventHandler(this.generateKeysBtn_Click);
+            // 
+            // rsaEncryptTextMenuItem
+            // 
+            this.rsaEncryptTextMenuItem.Name = "rsaEncryptTextMenuItem";
+            this.rsaEncryptTextMenuItem.Size = new System.Drawing.Size(147, 22);
+            this.rsaEncryptTextMenuItem.Text = "Encrypt text";
+            this.rsaEncryptTextMenuItem.Click += new System.EventHandler(this.encryptTextRsaBtn_Click);
+            // 
+            // rsaDecryptTextMenuItem
+            // 
+            this.rsaDecryptTextMenuItem.Name = "rsaDecryptTextMenuItem";
+            this.rsaDecryptTextMenuItem.Size = new System.Drawing.Size(147, 22);
+            this.rsaDecryptTextMenuItem.Text = "Decrypt text";
+            this.rsaDecryptTextMenuItem.Click += new System.EventHandler(this.decryptTextRsaBtn_Click);
+            // 
             // MainForm
             // 
             this.ClientSize = new System.Drawing.Size(812, 600);
@@ -420,6 +456,10 @@ namespace Cube.Secure.WinForms
         private System.Windows.Forms.Button generateKeysBtn;
         private System.Windows.Forms.Button decryptTextRsaBtn;
         private System.Windows.Forms.Button encryptTextRsaBtn;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
+        private System.Windows.Forms.ToolStripMenuItem generateKeysMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem rsaEncryptTextMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem rsaDecryptTextMenuItem;
     }
 }
 
