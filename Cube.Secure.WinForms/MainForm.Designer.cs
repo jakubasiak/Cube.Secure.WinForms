@@ -69,10 +69,14 @@ namespace Cube.Secure.WinForms
             this.decryptTextRsaBtn = new System.Windows.Forms.Button();
             this.encryptTextRsaBtn = new System.Windows.Forms.Button();
             this.generateKeysBtn = new System.Windows.Forms.Button();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.hybridDecryptTextBtn = new System.Windows.Forms.Button();
+            this.hybridEncryptTextBtn = new System.Windows.Forms.Button();
             this.statusStrip.SuspendLayout();
             this.menuStrip.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // button1
@@ -398,9 +402,41 @@ namespace Cube.Secure.WinForms
             this.generateKeysBtn.UseVisualStyleBackColor = true;
             this.generateKeysBtn.Click += new System.EventHandler(this.generateKeysBtn_Click);
             // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.hybridDecryptTextBtn);
+            this.groupBox3.Controls.Add(this.hybridEncryptTextBtn);
+            this.groupBox3.Location = new System.Drawing.Point(638, 415);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(164, 146);
+            this.groupBox3.TabIndex = 9;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Hybrid RSA + AES";
+            // 
+            // hybridDecryptTextBtn
+            // 
+            this.hybridDecryptTextBtn.Location = new System.Drawing.Point(7, 54);
+            this.hybridDecryptTextBtn.Name = "hybridDecryptTextBtn";
+            this.hybridDecryptTextBtn.Size = new System.Drawing.Size(149, 25);
+            this.hybridDecryptTextBtn.TabIndex = 0;
+            this.hybridDecryptTextBtn.Text = "Decrypt text";
+            this.hybridDecryptTextBtn.UseVisualStyleBackColor = true;
+            this.hybridDecryptTextBtn.Click += new System.EventHandler(this.hybridDecryptTextBtn_Click);
+            // 
+            // hybridEncryptTextBtn
+            // 
+            this.hybridEncryptTextBtn.Location = new System.Drawing.Point(7, 23);
+            this.hybridEncryptTextBtn.Name = "hybridEncryptTextBtn";
+            this.hybridEncryptTextBtn.Size = new System.Drawing.Size(149, 25);
+            this.hybridEncryptTextBtn.TabIndex = 0;
+            this.hybridEncryptTextBtn.Text = "Encrypt text";
+            this.hybridEncryptTextBtn.UseVisualStyleBackColor = true;
+            this.hybridEncryptTextBtn.Click += new System.EventHandler(this.hybridEncryptTextBtn_Click);
+            // 
             // MainForm
             // 
             this.ClientSize = new System.Drawing.Size(812, 600);
+            this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.groupBox1);
@@ -418,6 +454,7 @@ namespace Cube.Secure.WinForms
             this.menuStrip.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
+            this.groupBox3.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -460,6 +497,9 @@ namespace Cube.Secure.WinForms
         private System.Windows.Forms.ToolStripMenuItem generateKeysMenuItem;
         private System.Windows.Forms.ToolStripMenuItem rsaEncryptTextMenuItem;
         private System.Windows.Forms.ToolStripMenuItem rsaDecryptTextMenuItem;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.Button hybridDecryptTextBtn;
+        private System.Windows.Forms.Button hybridEncryptTextBtn;
     }
 }
 

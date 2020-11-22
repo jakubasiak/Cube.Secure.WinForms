@@ -351,5 +351,19 @@ namespace Cube.Secure.WinForms
             rsaConvertTextDialog.StartPosition = FormStartPosition.CenterParent;
             rsaConvertTextDialog.ShowDialog();
         }
+
+        private void hybridEncryptTextBtn_Click(object sender, EventArgs e)
+        {
+            HybridRsaAesConvertTextDialog hybridRsaAesConvertTextDialog = new HybridRsaAesConvertTextDialog(ActionType.Encrypt, this.Rsa, this.Aes);
+            hybridRsaAesConvertTextDialog.StartPosition = FormStartPosition.CenterParent;
+            hybridRsaAesConvertTextDialog.ShowDialog();
+        }
+
+        private void hybridDecryptTextBtn_Click(object sender, EventArgs e)
+        {
+            HybridRsaAesConvertTextDialog hybridRsaAesConvertTextDialog = new HybridRsaAesConvertTextDialog(ActionType.Decrypt, this.Rsa, this.Aes);
+            hybridRsaAesConvertTextDialog.StartPosition = FormStartPosition.CenterParent;
+            hybridRsaAesConvertTextDialog.ShowDialog();
+        }
     }
 }
