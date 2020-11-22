@@ -12,6 +12,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="KeyDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="HybridRsaAesConvertTextDialog.cs">
       <SubType>Form</SubType>
     </Compile>

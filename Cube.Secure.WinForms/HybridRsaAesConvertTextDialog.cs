@@ -54,7 +54,6 @@ namespace Cube.Secure.WinForms
                 try
                 {
                     var key = Guid.NewGuid();
-                    var x = key.ToByteArray().Length;
                     var textBytes = Encoding.Unicode.GetBytes(this.richTextBox.Text);
                     var encryptedKey = this.rsaCryptoProvider.Encrypt(key.ToByteArray(), this.keyTextBox.Text);
                     var encryptedText = this.aesCryptoProvider.Encrypt(textBytes, key.ToString());

@@ -130,10 +130,17 @@ namespace Cube.Secure.WinForms
 
                         for (int i = 0; i < allFilePaths.Count; i++)
                         {
-                            var file = File.ReadAllBytes(allFilePaths[i]);
-                            var encryptedFile = this.Aes.Encrypt(file, password);
-                            File.WriteAllBytes(allFilePaths[i], encryptedFile);
-                            bw.ReportProgress((int)(((float)i / allFilePaths.Count) * 100.0f));
+                            try
+                            {
+                                var file = File.ReadAllBytes(allFilePaths[i]);
+                                var encryptedFile = this.Aes.Encrypt(file, password);
+                                File.WriteAllBytes(allFilePaths[i], encryptedFile);
+                                bw.ReportProgress((int)(((float)i / allFilePaths.Count) * 100.0f));
+                            }
+                            catch (Exception ex)
+                            {
+                                this.statusLabel.Text = "Can not encrypt files";
+                            }
                         }
                     };
 
@@ -167,10 +174,17 @@ namespace Cube.Secure.WinForms
 
                     for (int i = 0; i < allFilePaths.Count; i++)
                     {
-                        var file = File.ReadAllBytes(allFilePaths[i]);
-                        var decryptedFile = this.Aes.Decrypt(file, password);
-                        File.WriteAllBytes(allFilePaths[i], decryptedFile);
-                        bw.ReportProgress((int)(((float)i / allFilePaths.Count) * 100.0f));
+                        try
+                        {
+                            var file = File.ReadAllBytes(allFilePaths[i]);
+                            var decryptedFile = this.Aes.Decrypt(file, password);
+                            File.WriteAllBytes(allFilePaths[i], decryptedFile);
+                            bw.ReportProgress((int)(((float)i / allFilePaths.Count) * 100.0f));
+                        }
+                        catch (Exception ex)
+                        {
+                            this.statusLabel.Text = "Can not decrypt files";
+                        }
                     }
                 };
 
@@ -204,12 +218,19 @@ namespace Cube.Secure.WinForms
 
                     for (int i = 0; i < allFilePaths.Count; i++)
                     {
-                        var file = File.ReadAllBytes(allFilePaths[i]);
-                        var encryptedFile = this.Aes.Encrypt(file, password);
-                        var encryptedFileName = this.GetEncryptedFileName(allFilePaths[i]);
-                        File.WriteAllBytes(encryptedFileName, encryptedFile);
-                        File.Delete(allFilePaths[i]);
-                        bw.ReportProgress((int)(((float)i / allFilePaths.Count) * 100.0f));
+                        try
+                        {
+                            var file = File.ReadAllBytes(allFilePaths[i]);
+                            var encryptedFile = this.Aes.Encrypt(file, password);
+                            var encryptedFileName = this.GetEncryptedFileName(allFilePaths[i]);
+                            File.WriteAllBytes(encryptedFileName, encryptedFile);
+                            File.Delete(allFilePaths[i]);
+                            bw.ReportProgress((int)(((float)i / allFilePaths.Count) * 100.0f));
+                        }
+                        catch (Exception ex)
+                        {
+                            this.statusLabel.Text = "Can not encrypt files";
+                        }
                     }
                 };
 
@@ -243,12 +264,19 @@ namespace Cube.Secure.WinForms
 
                     for (int i = 0; i < allFilePaths.Count; i++)
                     {
-                        var file = File.ReadAllBytes(allFilePaths[i]);
-                        var decryptedFile = this.Aes.Decrypt(file, password);
-                        var decryptedFileName = this.GetDecryptedFileName(allFilePaths[i]);
-                        File.WriteAllBytes(decryptedFileName, decryptedFile);
-                        File.Delete(allFilePaths[i]);
-                        bw.ReportProgress((int)(((float)i / allFilePaths.Count) * 100.0f));
+                        try
+                        {
+                            var file = File.ReadAllBytes(allFilePaths[i]);
+                            var decryptedFile = this.Aes.Decrypt(file, password);
+                            var decryptedFileName = this.GetDecryptedFileName(allFilePaths[i]);
+                            File.WriteAllBytes(decryptedFileName, decryptedFile);
+                            File.Delete(allFilePaths[i]);
+                            bw.ReportProgress((int)(((float)i / allFilePaths.Count) * 100.0f));
+                        }
+                        catch (Exception ex)
+                        {
+                            this.statusLabel.Text = "Can not decrypt files";
+                        }
                     }
                 };
 
@@ -267,7 +295,7 @@ namespace Cube.Secure.WinForms
                 var name = Path.GetFileName(fullPath);
                 names.Add(name);
                 this.selectedPaths.Add(fullPath);
-                this.ItemNames.Text = $"Names: {string.Join(", ", names)}";
+                this.statusLabel.Text = string.Join(", ", names);
                 this.SelectedItems.Text = $"Selected: {this.listView.SelectedIndices.Count}";
             }
         }
@@ -364,6 +392,210 @@ namespace Cube.Secure.WinForms
             HybridRsaAesConvertTextDialog hybridRsaAesConvertTextDialog = new HybridRsaAesConvertTextDialog(ActionType.Decrypt, this.Rsa, this.Aes);
             hybridRsaAesConvertTextDialog.StartPosition = FormStartPosition.CenterParent;
             hybridRsaAesConvertTextDialog.ShowDialog();
+        }
+
+        private void hybridEncryptBtn_Click(object sender, EventArgs e)
+        {
+            if (this.selectedPaths.Any())
+            {
+                KeysDialog keyDialog = new KeysDialog(ActionType.Encrypt);
+                keyDialog.StartPosition = FormStartPosition.CenterParent;
+                var result = keyDialog.ShowDialog();
+                if (result == DialogResult.OK && !string.IsNullOrEmpty(keyDialog.Key))
+                {
+                    var rsaKey = keyDialog.Key;
+                    var bw = new BackgroundWorker();
+                    bw.WorkerReportsProgress = true;
+                    bw.RunWorkerCompleted += (object s, RunWorkerCompletedEventArgs e) =>
+                    {
+                        this.toolStripProgressBar.Value = 100;
+                        this.RefreashFileList(this.currentDirectory);
+                        bw.Dispose();
+                    };
+                    bw.ProgressChanged += (object s, ProgressChangedEventArgs e) =>
+                    {
+                        this.toolStripProgressBar.Value = e.ProgressPercentage;
+                    };
+                    bw.DoWork += (object s, DoWorkEventArgs e) =>
+                    {
+                        var allFilePaths = this.GetAllFilePaths();
+
+                        for (int i = 0; i < allFilePaths.Count; i++)
+                        {
+                            try
+                            {
+                                var aeskey = Guid.NewGuid();
+                                var fileBytes = File.ReadAllBytes(allFilePaths[i]);
+                                var encryptedKey = this.Rsa.Encrypt(aeskey.ToByteArray(), rsaKey);
+                                var encryptedFile = this.Aes.Encrypt(fileBytes, aeskey.ToString());
+                                var concatedKeyAndFile = encryptedKey.Concat(encryptedFile).ToArray();
+                                File.WriteAllBytes(allFilePaths[i], concatedKeyAndFile);
+                                bw.ReportProgress((int)(((float)i / allFilePaths.Count) * 100.0f));
+                            }
+                            catch (Exception ex)
+                            {
+                                this.statusLabel.Text = "Can not encrypt files";
+                            }
+                        }
+                    };
+
+                    bw.RunWorkerAsync();
+                }
+            }
+        }
+
+        private void hybridDecryptBtn_Click(object sender, EventArgs e)
+        {
+            if (this.selectedPaths.Any())
+            {
+                KeysDialog keyDialog = new KeysDialog(ActionType.Decrypt);
+                keyDialog.StartPosition = FormStartPosition.CenterParent;
+                var result = keyDialog.ShowDialog();
+                if (result == DialogResult.OK && !string.IsNullOrEmpty(keyDialog.Key))
+                {
+                    var rsaKey = keyDialog.Key;
+                    var bw = new BackgroundWorker();
+                    bw.WorkerReportsProgress = true;
+                    bw.RunWorkerCompleted += (object s, RunWorkerCompletedEventArgs e) =>
+                    {
+                        this.toolStripProgressBar.Value = 100;
+                        this.RefreashFileList(this.currentDirectory);
+                        bw.Dispose();
+                    };
+                    bw.ProgressChanged += (object s, ProgressChangedEventArgs e) =>
+                    {
+                        this.toolStripProgressBar.Value = e.ProgressPercentage;
+                    };
+                    bw.DoWork += (object s, DoWorkEventArgs e) =>
+                    {
+                        var allFilePaths = this.GetAllFilePaths();
+
+                        for (int i = 0; i < allFilePaths.Count; i++)
+                        {
+                            try
+                            {
+                                var fileBytes = File.ReadAllBytes(allFilePaths[i]);
+                                var encryptedKey = fileBytes.Take(128).ToArray();
+                                var encryptedFile = fileBytes.Skip(128).ToArray();
+                                var aeskey = this.Rsa.Decrypt(encryptedKey, rsaKey);
+                                var decryptedFile = this.Aes.Decrypt(encryptedFile, new Guid(aeskey).ToString());
+                                File.WriteAllBytes(allFilePaths[i], decryptedFile);
+                                bw.ReportProgress((int)(((float)i / allFilePaths.Count) * 100.0f));
+                            }
+                            catch (Exception ex)
+                            {
+                                this.statusLabel.Text = "Can not decrypt files";
+                            }
+                        }
+                    };
+
+                    bw.RunWorkerAsync();
+                }
+            }
+        }
+
+        private void hybridEncryptWithNamesBtn_Click(object sender, EventArgs e)
+        {
+            if (this.selectedPaths.Any())
+            {
+                KeysDialog keyDialog = new KeysDialog(ActionType.Encrypt);
+                keyDialog.StartPosition = FormStartPosition.CenterParent;
+                var result = keyDialog.ShowDialog();
+                if (result == DialogResult.OK && !string.IsNullOrEmpty(keyDialog.Key))
+                {
+                    var rsaKey = keyDialog.Key;
+                    var bw = new BackgroundWorker();
+                    bw.WorkerReportsProgress = true;
+                    bw.RunWorkerCompleted += (object s, RunWorkerCompletedEventArgs e) =>
+                    {
+                        this.toolStripProgressBar.Value = 100;
+                        this.RefreashFileList(this.currentDirectory);
+                        bw.Dispose();
+                    };
+                    bw.ProgressChanged += (object s, ProgressChangedEventArgs e) =>
+                    {
+                        this.toolStripProgressBar.Value = e.ProgressPercentage;
+                    };
+                    bw.DoWork += (object s, DoWorkEventArgs e) =>
+                    {
+                        var allFilePaths = this.GetAllFilePaths();
+
+                        for (int i = 0; i < allFilePaths.Count; i++)
+                        {
+                            try
+                            {
+                                var aeskey = Guid.NewGuid();
+                                var fileBytes = File.ReadAllBytes(allFilePaths[i]);
+                                var encryptedKey = this.Rsa.Encrypt(aeskey.ToByteArray(), rsaKey);
+                                var encryptedFile = this.Aes.Encrypt(fileBytes, aeskey.ToString());
+                                var concatedKeyAndFile = encryptedKey.Concat(encryptedFile).ToArray();
+                                var encryptedFileName = this.GetEncryptedFileName(allFilePaths[i]);
+                                File.WriteAllBytes(encryptedFileName, concatedKeyAndFile);
+                                File.Delete(allFilePaths[i]);
+                                bw.ReportProgress((int)(((float)i / allFilePaths.Count) * 100.0f));
+                            }
+                            catch (Exception ex)
+                            {
+                                this.statusLabel.Text = "Can not encrypt files";
+                            }
+                        }
+                    };
+
+                    bw.RunWorkerAsync();
+                }
+            }
+        }
+
+        private void hybridDecryptWithNamesBtn_Click(object sender, EventArgs e)
+        {
+            if (this.selectedPaths.Any())
+            {
+                KeysDialog keyDialog = new KeysDialog(ActionType.Decrypt);
+                keyDialog.StartPosition = FormStartPosition.CenterParent;
+                var result = keyDialog.ShowDialog();
+                if (result == DialogResult.OK && !string.IsNullOrEmpty(keyDialog.Key))
+                {
+                    var rsaKey = keyDialog.Key;
+                    var bw = new BackgroundWorker();
+                    bw.WorkerReportsProgress = true;
+                    bw.RunWorkerCompleted += (object s, RunWorkerCompletedEventArgs e) =>
+                    {
+                        this.toolStripProgressBar.Value = 100;
+                        this.RefreashFileList(this.currentDirectory);
+                        bw.Dispose();
+                    };
+                    bw.ProgressChanged += (object s, ProgressChangedEventArgs e) =>
+                    {
+                        this.toolStripProgressBar.Value = e.ProgressPercentage;
+                    };
+                    bw.DoWork += (object s, DoWorkEventArgs e) =>
+                    {
+                        var allFilePaths = this.GetAllFilePaths();
+
+                        for (int i = 0; i < allFilePaths.Count; i++)
+                        {
+                            try
+                            {
+                                var fileBytes = File.ReadAllBytes(allFilePaths[i]);
+                                var encryptedKey = fileBytes.Take(128).ToArray();
+                                var encryptedFile = fileBytes.Skip(128).ToArray();
+                                var aeskey = this.Rsa.Decrypt(encryptedKey, rsaKey);
+                                var decryptedFile = this.Aes.Decrypt(encryptedFile, new Guid(aeskey).ToString());
+                                var decryptedFileName = this.GetDecryptedFileName(allFilePaths[i]);
+                                File.WriteAllBytes(decryptedFileName, decryptedFile);
+                                File.Delete(allFilePaths[i]);
+                                bw.ReportProgress((int)(((float)i / allFilePaths.Count) * 100.0f));
+                            }
+                            catch (Exception ex)
+                            {
+                                this.statusLabel.Text = "Can not decrypt files";
+                            }
+                        }
+                    };
+
+                    bw.RunWorkerAsync();
+                }
+            }
         }
     }
 }

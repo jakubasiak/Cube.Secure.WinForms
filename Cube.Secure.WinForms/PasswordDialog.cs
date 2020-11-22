@@ -32,7 +32,6 @@ namespace Cube.Secure.WinForms
             {
                 this.cancelBtn.PerformClick();
             }
-
         }
     }
 }
