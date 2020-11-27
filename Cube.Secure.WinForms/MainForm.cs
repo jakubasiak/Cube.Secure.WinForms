@@ -597,5 +597,30 @@ namespace Cube.Secure.WinForms
                 }
             }
         }
+
+        private void hashFileBtn_Click(object sender, EventArgs e)
+        {
+
+            var path = selectedPaths.Any() ? selectedPaths[0] : null;
+            HaschFileDialog haschFileDialog = new HaschFileDialog(path);
+            haschFileDialog.StartPosition = FormStartPosition.CenterParent;
+            haschFileDialog.ShowDialog();
+        }
+
+        private void compareFilesBtn_Click(object sender, EventArgs e)
+        {
+            var path1 = selectedPaths.Any() ? selectedPaths[0] : null;
+            var path2 = selectedPaths.Count > 1 ? selectedPaths[1] : null;
+            CompareFilesDialog compareFilesDialog = new CompareFilesDialog(path1, path2);
+            compareFilesDialog.StartPosition = FormStartPosition.CenterParent;
+            compareFilesDialog.ShowDialog();
+        }
+
+        private void hashTextBtn_Click(object sender, EventArgs e)
+        {
+            HaschTextDialog haschTextDialog = new HaschTextDialog();
+            haschTextDialog.StartPosition = FormStartPosition.CenterParent;
+            haschTextDialog.ShowDialog();
+        }
     }
 }

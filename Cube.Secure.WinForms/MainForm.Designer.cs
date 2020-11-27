@@ -84,17 +84,24 @@ namespace Cube.Secure.WinForms
             this.hybridDecryptTextBtn = new System.Windows.Forms.Button();
             this.hybridEncryptTextBtn = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.compareTextBtn = new System.Windows.Forms.Button();
+            this.compareFilesBtn = new System.Windows.Forms.Button();
+            this.hashTextBtn = new System.Windows.Forms.Button();
+            this.hashFileBtn = new System.Windows.Forms.Button();
             this.statusStrip.SuspendLayout();
             this.menuStrip.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(13, 48);
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button1.Location = new System.Drawing.Point(493, 49);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(100, 25);
             this.button1.TabIndex = 0;
@@ -365,7 +372,7 @@ namespace Cube.Secure.WinForms
             this.pathTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pathTextBox.Enabled = false;
-            this.pathTextBox.Location = new System.Drawing.Point(119, 49);
+            this.pathTextBox.Location = new System.Drawing.Point(13, 50);
             this.pathTextBox.Name = "pathTextBox";
             this.pathTextBox.Size = new System.Drawing.Size(474, 23);
             this.pathTextBox.TabIndex = 6;
@@ -544,6 +551,7 @@ namespace Cube.Secure.WinForms
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.groupBox4);
             this.panel1.Controls.Add(this.groupBox1);
             this.panel1.Controls.Add(this.groupBox2);
             this.panel1.Controls.Add(this.groupBox3);
@@ -552,6 +560,58 @@ namespace Cube.Secure.WinForms
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(345, 552);
             this.panel1.TabIndex = 10;
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.compareTextBtn);
+            this.groupBox4.Controls.Add(this.compareFilesBtn);
+            this.groupBox4.Controls.Add(this.hashTextBtn);
+            this.groupBox4.Controls.Add(this.hashFileBtn);
+            this.groupBox4.Location = new System.Drawing.Point(6, 332);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(164, 148);
+            this.groupBox4.TabIndex = 10;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Hash functions";
+            // 
+            // compareTextBtn
+            // 
+            this.compareTextBtn.Location = new System.Drawing.Point(7, 115);
+            this.compareTextBtn.Name = "compareTextBtn";
+            this.compareTextBtn.Size = new System.Drawing.Size(149, 25);
+            this.compareTextBtn.TabIndex = 3;
+            this.compareTextBtn.Text = "Compare text";
+            this.compareTextBtn.UseVisualStyleBackColor = true;
+            // 
+            // compareFilesBtn
+            // 
+            this.compareFilesBtn.Location = new System.Drawing.Point(6, 53);
+            this.compareFilesBtn.Name = "compareFilesBtn";
+            this.compareFilesBtn.Size = new System.Drawing.Size(149, 25);
+            this.compareFilesBtn.TabIndex = 2;
+            this.compareFilesBtn.Text = "Compare files";
+            this.compareFilesBtn.UseVisualStyleBackColor = true;
+            this.compareFilesBtn.Click += new System.EventHandler(this.compareFilesBtn_Click);
+            // 
+            // hashTextBtn
+            // 
+            this.hashTextBtn.Location = new System.Drawing.Point(6, 84);
+            this.hashTextBtn.Name = "hashTextBtn";
+            this.hashTextBtn.Size = new System.Drawing.Size(149, 25);
+            this.hashTextBtn.TabIndex = 1;
+            this.hashTextBtn.Text = "Hash text";
+            this.hashTextBtn.UseVisualStyleBackColor = true;
+            this.hashTextBtn.Click += new System.EventHandler(this.hashTextBtn_Click);
+            // 
+            // hashFileBtn
+            // 
+            this.hashFileBtn.Location = new System.Drawing.Point(6, 22);
+            this.hashFileBtn.Name = "hashFileBtn";
+            this.hashFileBtn.Size = new System.Drawing.Size(149, 25);
+            this.hashFileBtn.TabIndex = 0;
+            this.hashFileBtn.Text = "Hash file";
+            this.hashFileBtn.UseVisualStyleBackColor = true;
+            this.hashFileBtn.Click += new System.EventHandler(this.hashFileBtn_Click);
             // 
             // MainForm
             // 
@@ -574,6 +634,7 @@ namespace Cube.Secure.WinForms
             this.groupBox2.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
+            this.groupBox4.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -631,6 +692,11 @@ namespace Cube.Secure.WinForms
         private System.Windows.Forms.ToolStripMenuItem hybridDecryptWithNamesMenuItem;
         private System.Windows.Forms.ToolStripMenuItem hybridEncryptTextMenuItem;
         private System.Windows.Forms.ToolStripMenuItem hybridDecryptTextMenuItem;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.Button compareTextBtn;
+        private System.Windows.Forms.Button compareFilesBtn;
+        private System.Windows.Forms.Button hashTextBtn;
+        private System.Windows.Forms.Button hashFileBtn;
     }
 }
 

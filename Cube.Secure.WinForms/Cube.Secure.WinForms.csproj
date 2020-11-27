@@ -12,6 +12,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="CompareFilesDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="HashTextDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="HashFileDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="KeyDialog.cs">
       <SubType>Form</SubType>
     </Compile>

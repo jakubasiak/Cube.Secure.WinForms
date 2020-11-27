@@ -116,6 +116,7 @@ namespace Cube.Secure.WinForms
             this.Controls.Add(this.cancelBtn);
             this.Controls.Add(this.pesteKeyBtn);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MinimumSize = new System.Drawing.Size(500, 278);
             this.Name = "KeysDialog";
             this.Text = "Generate keys";
             this.ResumeLayout(false);
