@@ -618,9 +618,16 @@ namespace Cube.Secure.WinForms
 
         private void hashTextBtn_Click(object sender, EventArgs e)
         {
-            HaschTextDialog haschTextDialog = new HaschTextDialog();
+            HashTextDialog haschTextDialog = new HashTextDialog();
             haschTextDialog.StartPosition = FormStartPosition.CenterParent;
             haschTextDialog.ShowDialog();
+        }
+
+        private void compareTextBtn_Click(object sender, EventArgs e)
+        {
+            CompareTextDialog compareTextDialog = new CompareTextDialog();
+            compareTextDialog.StartPosition = FormStartPosition.CenterParent;
+            compareTextDialog.ShowDialog();
         }
     }
 }

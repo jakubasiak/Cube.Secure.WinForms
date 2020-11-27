@@ -66,6 +66,11 @@ namespace Cube.Secure.WinForms
             this.hybridDecryptWithNamesMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hybridEncryptTextMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hybridDecryptTextMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
+            this.hashFileMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.compareFilesMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.hashTextMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.compareTextsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pathTextBox = new System.Windows.Forms.TextBox();
             this.encryptWithNamesBtn = new System.Windows.Forms.Button();
             this.decryptWithNamesBtn = new System.Windows.Forms.Button();
@@ -190,7 +195,8 @@ namespace Cube.Secure.WinForms
             this.toolStripMenuItem1,
             this.toolStripMenuItem2,
             this.toolStripMenuItem3,
-            this.toolStripMenuItem4});
+            this.toolStripMenuItem4,
+            this.toolStripMenuItem5});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
             this.menuStrip.Size = new System.Drawing.Size(944, 24);
@@ -322,8 +328,8 @@ namespace Cube.Secure.WinForms
             this.hybridEncryptTextMenuItem,
             this.hybridDecryptTextMenuItem});
             this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-            this.toolStripMenuItem4.Size = new System.Drawing.Size(107, 20);
-            this.toolStripMenuItem4.Text = "Hybrid RSA+AES";
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(68, 20);
+            this.toolStripMenuItem4.Text = "RSA+AES";
             // 
             // hybridEncryptMenuItem
             // 
@@ -366,6 +372,45 @@ namespace Cube.Secure.WinForms
             this.hybridDecryptTextMenuItem.Size = new System.Drawing.Size(198, 22);
             this.hybridDecryptTextMenuItem.Text = "Decrypt text";
             this.hybridDecryptTextMenuItem.Click += new System.EventHandler(this.hybridDecryptTextBtn_Click);
+            // 
+            // toolStripMenuItem5
+            // 
+            this.toolStripMenuItem5.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.hashFileMenuItem,
+            this.compareFilesMenuItem,
+            this.hashTextMenuItem,
+            this.compareTextsMenuItem});
+            this.toolStripMenuItem5.Name = "toolStripMenuItem5";
+            this.toolStripMenuItem5.Size = new System.Drawing.Size(46, 20);
+            this.toolStripMenuItem5.Text = "Hash";
+            // 
+            // hashFileMenuItem
+            // 
+            this.hashFileMenuItem.Name = "hashFileMenuItem";
+            this.hashFileMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.hashFileMenuItem.Text = "Hash file";
+            this.hashFileMenuItem.Click += new System.EventHandler(this.hashFileBtn_Click);
+            // 
+            // compareFilesMenuItem
+            // 
+            this.compareFilesMenuItem.Name = "compareFilesMenuItem";
+            this.compareFilesMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.compareFilesMenuItem.Text = "Compare files";
+            this.compareFilesMenuItem.Click += new System.EventHandler(this.compareFilesBtn_Click);
+            // 
+            // hashTextMenuItem
+            // 
+            this.hashTextMenuItem.Name = "hashTextMenuItem";
+            this.hashTextMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.hashTextMenuItem.Text = "Hash text";
+            this.hashTextMenuItem.Click += new System.EventHandler(this.hashTextBtn_Click);
+            // 
+            // compareTextsMenuItem
+            // 
+            this.compareTextsMenuItem.Name = "compareTextsMenuItem";
+            this.compareTextsMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.compareTextsMenuItem.Text = "Compare texts";
+            this.compareTextsMenuItem.Click += new System.EventHandler(this.compareTextBtn_Click);
             // 
             // pathTextBox
             // 
@@ -487,7 +532,7 @@ namespace Cube.Secure.WinForms
             this.groupBox3.Size = new System.Drawing.Size(164, 210);
             this.groupBox3.TabIndex = 9;
             this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Hybrid RSA+AES";
+            this.groupBox3.Text = "RSA+AES";
             // 
             // hybridDecryptWithNamesBtn
             // 
@@ -572,7 +617,7 @@ namespace Cube.Secure.WinForms
             this.groupBox4.Size = new System.Drawing.Size(164, 148);
             this.groupBox4.TabIndex = 10;
             this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Hash functions";
+            this.groupBox4.Text = "Hash";
             // 
             // compareTextBtn
             // 
@@ -580,8 +625,9 @@ namespace Cube.Secure.WinForms
             this.compareTextBtn.Name = "compareTextBtn";
             this.compareTextBtn.Size = new System.Drawing.Size(149, 25);
             this.compareTextBtn.TabIndex = 3;
-            this.compareTextBtn.Text = "Compare text";
+            this.compareTextBtn.Text = "Compare texts";
             this.compareTextBtn.UseVisualStyleBackColor = true;
+            this.compareTextBtn.Click += new System.EventHandler(this.compareTextBtn_Click);
             // 
             // compareFilesBtn
             // 
@@ -697,6 +743,11 @@ namespace Cube.Secure.WinForms
         private System.Windows.Forms.Button compareFilesBtn;
         private System.Windows.Forms.Button hashTextBtn;
         private System.Windows.Forms.Button hashFileBtn;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem5;
+        private System.Windows.Forms.ToolStripMenuItem hashFileMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem compareFilesMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem hashTextMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem compareTextsMenuItem;
     }
 }
 

@@ -26,19 +26,6 @@ namespace Cube.Secure.WinForms
             }
         }
 
-        //private void openFileBtn_Click(object sender, EventArgs e)
-        //{
-        //    OpenFileDialog openFileDialog = new OpenFileDialog();
-        //    openFileDialog.Multiselect = false;
-        //    openFileDialog.RestoreDirectory = true;
-
-        //    if (openFileDialog.ShowDialog() == DialogResult.OK && !string.IsNullOrEmpty(openFileDialog.FileName))
-        //    {
-        //        //var filePath = Path.GetFullPath(openFileDialog.FileName);
-        //        //this.CalculateHashes(filePath);
-        //    }
-        //}
-
         private void CalculateFirstHash(string filePath)
         {
             this.firstFileTextBox.Text = filePath;

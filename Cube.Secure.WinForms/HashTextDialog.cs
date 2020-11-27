@@ -11,9 +11,9 @@ using System.Windows.Forms;
 
 namespace Cube.Secure.WinForms
 {
-    public partial class HaschTextDialog : Form
+    public partial class HashTextDialog : Form
     {
-        public HaschTextDialog()
+        public HashTextDialog()
         {
             InitializeComponent();
         }

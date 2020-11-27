@@ -15,6 +15,9 @@
     <Compile Update="CompareFilesDialog.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="CompareTextDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="HashTextDialog.cs">
       <SubType>Form</SubType>
     </Compile>
