@@ -527,10 +527,12 @@ namespace Cube.Secure.WinForms
                         {
                             try
                             {
-                                var aeskey = Guid.NewGuid();
+                                byte[] aeskey = new byte[16];
+                                RNGCryptoServiceProvider rng = new RNGCryptoServiceProvider();
+                                rng.GetBytes(aeskey);
                                 var fileBytes = File.ReadAllBytes(allFilePaths[i]);
-                                var encryptedKey = this.Rsa.Encrypt(aeskey.ToByteArray(), rsaKey);
-                                var encryptedFile = this.Aes.Encrypt(fileBytes, aeskey.ToString());
+                                var encryptedKey = this.Rsa.Encrypt(aeskey, rsaKey);
+                                var encryptedFile = this.Aes.Encrypt(fileBytes, Convert.ToBase64String(aeskey));
                                 var concatedKeyAndFile = encryptedKey.Concat(encryptedFile).ToArray();
                                 var encryptedFileName = this.GetEncryptedFileName(allFilePaths[i]);
                                 File.WriteAllBytes(encryptedFileName, concatedKeyAndFile);
@@ -580,10 +582,10 @@ namespace Cube.Secure.WinForms
                             try
                             {
                                 var fileBytes = File.ReadAllBytes(allFilePaths[i]);
-                                var encryptedKey = fileBytes.Take(128).ToArray();
-                                var encryptedFile = fileBytes.Skip(128).ToArray();
+                                var encryptedKey = fileBytes.Take(256).ToArray();
+                                var encryptedFile = fileBytes.Skip(256).ToArray();
                                 var aeskey = this.Rsa.Decrypt(encryptedKey, rsaKey);
-                                var decryptedFile = this.Aes.Decrypt(encryptedFile, new Guid(aeskey).ToString());
+                                var decryptedFile = this.Aes.Decrypt(encryptedFile, Convert.ToBase64String(aeskey));
                                 var decryptedFileName = this.GetDecryptedFileName(allFilePaths[i]);
                                 File.WriteAllBytes(decryptedFileName, decryptedFile);
                                 File.Delete(allFilePaths[i]);

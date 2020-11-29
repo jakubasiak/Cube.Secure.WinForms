@@ -6,6 +6,7 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Windows.Forms;
 
@@ -14,10 +15,10 @@ namespace Cube.Secure.WinForms
     public partial class HybridRsaAesConvertTextDialog : Form
     {
         private readonly ActionType actionType;
-        private readonly RSA rsaCryptoProvider;
+        private readonly Cube.Secure.WinForms.Logic.RSA rsaCryptoProvider;
         private readonly AES aesCryptoProvider;
 
-        public HybridRsaAesConvertTextDialog(ActionType actionType, RSA rsaCryptoProvider, AES aesCryptoProvider)
+        public HybridRsaAesConvertTextDialog(ActionType actionType, Cube.Secure.WinForms.Logic.RSA rsaCryptoProvider, AES aesCryptoProvider)
         {
             InitializeComponent();
             this.actionType = actionType;
@@ -53,10 +54,12 @@ namespace Cube.Secure.WinForms
             {
                 try
                 {
-                    var key = Guid.NewGuid();
+                    byte[] key = new byte[16];
+                    RNGCryptoServiceProvider rng = new RNGCryptoServiceProvider();
+                    rng.GetBytes(key);
                     var textBytes = Encoding.Unicode.GetBytes(this.richTextBox.Text);
-                    var encryptedKey = this.rsaCryptoProvider.Encrypt(key.ToByteArray(), this.keyTextBox.Text);
-                    var encryptedText = this.aesCryptoProvider.Encrypt(textBytes, key.ToString());
+                    var encryptedKey = this.rsaCryptoProvider.Encrypt(key, this.keyTextBox.Text);
+                    var encryptedText = this.aesCryptoProvider.Encrypt(textBytes, Convert.ToBase64String(key));
                     var concatedKeyAndText = encryptedKey.Concat(encryptedText).ToArray();
                     this.richTextBox.Text = Convert.ToBase64String(concatedKeyAndText);
                 }
@@ -70,10 +73,10 @@ namespace Cube.Secure.WinForms
                 try
                 {
                     var concatedKeyAndText = Convert.FromBase64String(this.richTextBox.Text);
-                    var encryptedKey = concatedKeyAndText.Take(128).ToArray();
-                    var encryptedText = concatedKeyAndText.Skip(128).ToArray();
+                    var encryptedKey = concatedKeyAndText.Take(256).ToArray();
+                    var encryptedText = concatedKeyAndText.Skip(256).ToArray();
                     var key = this.rsaCryptoProvider.Decrypt(encryptedKey, this.keyTextBox.Text);
-                    var textBytes = this.aesCryptoProvider.Decrypt(encryptedText, new Guid(key).ToString());
+                    var textBytes = this.aesCryptoProvider.Decrypt(encryptedText, Convert.ToBase64String(key));
                     this.richTextBox.Text = Encoding.Unicode.GetString(textBytes);
                 }
                 catch (Exception ex)
