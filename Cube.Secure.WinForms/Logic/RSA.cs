@@ -21,13 +21,13 @@ namespace Cube.Secure.WinForms.Logic
 
         public byte[] Decrypt(byte[] encrypted, string key)
         {
-            this.rsa.FromXmlString(key);
+            this.rsa.ImportRSAPrivateKey(this.ImportKey(key), out _);
             return this.rsa.Decrypt(encrypted, false);
         }
 
         public string DecryptString(string cypherText, string key, bool withCompressin)
         {
-            this.rsa.FromXmlString(key);
+            this.rsa.ImportRSAPrivateKey(this.ImportKey(key), out _);
             var data = Convert.FromBase64String(cypherText);
             var plainText = this.rsa.Decrypt(data, false);
             return withCompressin ? ZipHelper.Unzip(plainText) : Encoding.Unicode.GetString(plainText);
@@ -35,26 +35,42 @@ namespace Cube.Secure.WinForms.Logic
 
         public byte[] Encrypt(byte[] encrypted, string key)
         {
-            this.rsa.FromXmlString(key);
+            this.rsa.ImportRSAPublicKey(this.ImportKey(key),  out _);
             return this.rsa.Encrypt(encrypted, false);
         }
 
         public string EncryptString(string plainText, string key, bool withCompressin)
         {
-            this.rsa.FromXmlString(key);
+            this.rsa.ImportRSAPublicKey(this.ImportKey(key), out _);
             var data = withCompressin ? ZipHelper.Zip(plainText) : Encoding.Unicode.GetBytes(plainText);
             var cypher = this.rsa.Encrypt(data, false);
             return Convert.ToBase64String(cypher);
         }
 
-        public string GetPublicKey()
+        public string ExportPublicKey()
         {
-            return this.rsa.ToXmlString(false);
+            var key = Convert.ToBase64String(this.rsa.ExportRSAPublicKey());
+            var sb = new StringBuilder();
+            sb.AppendLine("-----BEGIN RSA PRIVATE KEY-----");
+            sb.AppendLine(key);
+            sb.AppendLine("-----END RSA PRIVATE KEY-----");
+            return sb.ToString();
         }
 
-        public string GetPrivateKey()
+        public string ExportPrivateKey()
         {
-            return this.rsa.ToXmlString(true);
+            var key = Convert.ToBase64String(this.rsa.ExportRSAPrivateKey());
+            var sb = new StringBuilder();
+            sb.AppendLine("-----BEGIN RSA PUBLIC KEY-----");
+            sb.AppendLine(key);
+            sb.AppendLine("-----END RSA PUBLIC KEY-----");
+            return sb.ToString();
+        }
+
+        public byte[] ImportKey(string key)
+        {
+            var te = key.Split("\n")[1];
+            return Convert.FromBase64String(te);
         }
     }
 }

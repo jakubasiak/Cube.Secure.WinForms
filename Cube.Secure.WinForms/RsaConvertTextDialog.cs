@@ -32,7 +32,7 @@ namespace Cube.Secure.WinForms
         {
             OpenFileDialog openKeyDialog = new OpenFileDialog();
 
-            openKeyDialog.Filter = "XML-File | *.xml";
+            openKeyDialog.Filter = "Text|*.txt";
             openKeyDialog.RestoreDirectory = true;
 
             if (openKeyDialog.ShowDialog() == DialogResult.OK)
@@ -52,7 +52,7 @@ namespace Cube.Secure.WinForms
                 {
                     this.richTextBox.Text = this.cryptoProvider.EncryptString(this.richTextBox.Text, this.keyTextBox.Text, true);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
                     this.richTextBox.Text = "Can not encrypt the text";
                 }
@@ -63,7 +63,7 @@ namespace Cube.Secure.WinForms
                 {
                     this.richTextBox.Text = this.cryptoProvider.DecryptString(this.richTextBox.Text, this.keyTextBox.Text, true);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
                     this.richTextBox.Text = "Can not decrypt the text";
                 }

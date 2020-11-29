@@ -35,7 +35,7 @@ namespace Cube.Secure.WinForms
         {
             OpenFileDialog openKeyDialog = new OpenFileDialog();
 
-            openKeyDialog.Filter = "XML-File | *.xml";
+            openKeyDialog.Filter = "Text|*.txt";
             openKeyDialog.RestoreDirectory = true;
 
             if (openKeyDialog.ShowDialog() == DialogResult.OK)

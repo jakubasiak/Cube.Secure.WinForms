@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -28,14 +29,14 @@ namespace Cube.Secure.WinForms
             }
         }
 
-        private RSA rsa;
-        public RSA Rsa
+        private Cube.Secure.WinForms.Logic.RSA rsa;
+        public Cube.Secure.WinForms.Logic.RSA Rsa
         {
             get
             {
                 if (this.rsa == null)
                 {
-                    this.rsa = new RSA();
+                    this.rsa = new Cube.Secure.WinForms.Logic.RSA();
                 }
                 return this.rsa;
             }
@@ -424,10 +425,12 @@ namespace Cube.Secure.WinForms
                         {
                             try
                             {
-                                var aeskey = Guid.NewGuid();
+                                byte[] aeskey = new byte[16];
+                                RNGCryptoServiceProvider rng = new RNGCryptoServiceProvider();
+                                rng.GetBytes(aeskey);
                                 var fileBytes = File.ReadAllBytes(allFilePaths[i]);
-                                var encryptedKey = this.Rsa.Encrypt(aeskey.ToByteArray(), rsaKey);
-                                var encryptedFile = this.Aes.Encrypt(fileBytes, aeskey.ToString());
+                                var encryptedKey = this.Rsa.Encrypt(aeskey, rsaKey);
+                                var encryptedFile = this.Aes.Encrypt(fileBytes, Convert.ToBase64String(aeskey));
                                 var concatedKeyAndFile = encryptedKey.Concat(encryptedFile).ToArray();
                                 File.WriteAllBytes(allFilePaths[i], concatedKeyAndFile);
                                 bw.ReportProgress((int)(((float)i / allFilePaths.Count) * 100.0f));
@@ -475,10 +478,10 @@ namespace Cube.Secure.WinForms
                             try
                             {
                                 var fileBytes = File.ReadAllBytes(allFilePaths[i]);
-                                var encryptedKey = fileBytes.Take(128).ToArray();
-                                var encryptedFile = fileBytes.Skip(128).ToArray();
+                                var encryptedKey = fileBytes.Take(256).ToArray();
+                                var encryptedFile = fileBytes.Skip(256).ToArray();
                                 var aeskey = this.Rsa.Decrypt(encryptedKey, rsaKey);
-                                var decryptedFile = this.Aes.Decrypt(encryptedFile, new Guid(aeskey).ToString());
+                                var decryptedFile = this.Aes.Decrypt(encryptedFile, Convert.ToBase64String(aeskey));
                                 File.WriteAllBytes(allFilePaths[i], decryptedFile);
                                 bw.ReportProgress((int)(((float)i / allFilePaths.Count) * 100.0f));
                             }

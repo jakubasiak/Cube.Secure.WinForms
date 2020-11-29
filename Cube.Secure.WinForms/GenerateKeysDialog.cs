@@ -21,8 +21,8 @@ namespace Cube.Secure.WinForms
             InitializeComponent();
             this.rsa = new RSA();
             this.keyId = this.GenerateId();
-            this.publicKeyRichTextBox.Text = this.rsa.GetPublicKey();
-            this.privateKeyRichTextBox.Text = this.rsa.GetPrivateKey();
+            this.publicKeyRichTextBox.Text = this.rsa.ExportPublicKey();
+            this.privateKeyRichTextBox.Text = this.rsa.ExportPrivateKey();
         }
 
         private void copyPrivateKeyBtn_Click(object sender, EventArgs e)
@@ -39,7 +39,7 @@ namespace Cube.Secure.WinForms
         {
             SaveFileDialog saveKeysFileDialog = new SaveFileDialog();
 
-            saveKeysFileDialog.Filter = "XML-File | *.xml";
+            saveKeysFileDialog.Filter = "Text|*.txt";
             saveKeysFileDialog.FileName = this.keyId;
             saveKeysFileDialog.RestoreDirectory = true;
 
