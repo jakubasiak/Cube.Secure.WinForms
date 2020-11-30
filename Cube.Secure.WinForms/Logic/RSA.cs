@@ -12,11 +12,13 @@ namespace Cube.Secure.WinForms.Logic
         public RSA()
         {
             this.rsa = new RSACryptoServiceProvider(2048);
+            this.rsa.PersistKeyInCsp = false;
         }
 
         public RSA(RSAKeySize keySize)
         {
             this.rsa = new RSACryptoServiceProvider((int)keySize);
+            this.rsa.PersistKeyInCsp = false;
         }
 
         public byte[] Decrypt(byte[] encrypted, string key)
@@ -35,7 +37,7 @@ namespace Cube.Secure.WinForms.Logic
 
         public byte[] Encrypt(byte[] encrypted, string key)
         {
-            this.rsa.ImportRSAPublicKey(this.ImportKey(key),  out _);
+            this.rsa.ImportRSAPublicKey(this.ImportKey(key), out _);
             return this.rsa.Encrypt(encrypted, false);
         }
 
@@ -69,8 +71,37 @@ namespace Cube.Secure.WinForms.Logic
 
         public byte[] ImportKey(string key)
         {
-            var te = key.Split("\n")[1];
-            return Convert.FromBase64String(te);
+            try
+            {
+                var te = key.Split("\n")[1];
+                return Convert.FromBase64String(te);
+            }
+            catch (Exception ex)
+            {
+                throw new ArgumentException("The key is not valid");
+            }
+        }
+
+        public string SignData(byte[] sha256hashOfDataToSign, string key)
+        {
+            this.rsa.ImportRSAPrivateKey(this.ImportKey(key), out _);
+
+            var rsaFormatter = new RSAPKCS1SignatureFormatter(this.rsa);
+            rsaFormatter.SetHashAlgorithm("SHA256");
+
+            var signature = rsaFormatter.CreateSignature(sha256hashOfDataToSign);
+            return Convert.ToBase64String(signature);
+        }
+
+        public bool VerifySignature(byte[] sha256hashOfDataToSign, string signature, string key)
+        {
+            this.rsa.ImportRSAPublicKey(this.ImportKey(key), out _);
+
+            var rsaDeformatter = new RSAPKCS1SignatureDeformatter(this.rsa);
+            rsaDeformatter.SetHashAlgorithm("SHA256");
+
+            var byteSignature = Convert.FromBase64String(signature);
+            return rsaDeformatter.VerifySignature(sha256hashOfDataToSign, byteSignature);
         }
     }
 }

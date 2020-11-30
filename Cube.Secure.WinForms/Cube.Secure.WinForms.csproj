@@ -18,6 +18,12 @@
     <Compile Update="CompareTextDialog.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="VerifyFileDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="SignFileDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="HashTextDialog.cs">
       <SubType>Form</SubType>
     </Compile>

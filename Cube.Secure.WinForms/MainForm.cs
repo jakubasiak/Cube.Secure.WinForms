@@ -605,7 +605,6 @@ namespace Cube.Secure.WinForms
 
         private void hashFileBtn_Click(object sender, EventArgs e)
         {
-
             var path = selectedPaths.Any() ? selectedPaths[0] : null;
             HaschFileDialog haschFileDialog = new HaschFileDialog(path);
             haschFileDialog.StartPosition = FormStartPosition.CenterParent;
@@ -633,6 +632,22 @@ namespace Cube.Secure.WinForms
             CompareTextDialog compareTextDialog = new CompareTextDialog();
             compareTextDialog.StartPosition = FormStartPosition.CenterParent;
             compareTextDialog.ShowDialog();
+        }
+
+        private void signFileBtn_Click(object sender, EventArgs e)
+        {
+            var path = selectedPaths.Any() ? selectedPaths[0] : null;
+            SignFileDialog signFileDialog = new SignFileDialog(path, this.Rsa);
+            signFileDialog.StartPosition = FormStartPosition.CenterParent;
+            signFileDialog.ShowDialog();
+        }
+
+        private void verifyFileBtn_Click(object sender, EventArgs e)
+        {
+            var path = selectedPaths.Any() ? selectedPaths[0] : null;
+            VerifyFileDialog verifyFileDialog = new VerifyFileDialog(path, this.Rsa);
+            verifyFileDialog.StartPosition = FormStartPosition.CenterParent;
+            verifyFileDialog.ShowDialog();
         }
     }
 }

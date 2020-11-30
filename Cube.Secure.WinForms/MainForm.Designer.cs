@@ -89,6 +89,9 @@ namespace Cube.Secure.WinForms
             this.hybridDecryptTextBtn = new System.Windows.Forms.Button();
             this.hybridEncryptTextBtn = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.verifyFileBtn = new System.Windows.Forms.Button();
+            this.signFileBtn = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.compareTextBtn = new System.Windows.Forms.Button();
             this.compareFilesBtn = new System.Windows.Forms.Button();
@@ -100,6 +103,7 @@ namespace Cube.Secure.WinForms
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.groupBox5.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -596,6 +600,7 @@ namespace Cube.Secure.WinForms
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.groupBox5);
             this.panel1.Controls.Add(this.groupBox4);
             this.panel1.Controls.Add(this.groupBox1);
             this.panel1.Controls.Add(this.groupBox2);
@@ -605,6 +610,37 @@ namespace Cube.Secure.WinForms
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(345, 552);
             this.panel1.TabIndex = 10;
+            // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.verifyFileBtn);
+            this.groupBox5.Controls.Add(this.signFileBtn);
+            this.groupBox5.Location = new System.Drawing.Point(177, 212);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(163, 85);
+            this.groupBox5.TabIndex = 11;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Digital Signature";
+            // 
+            // verifyFileBtn
+            // 
+            this.verifyFileBtn.Location = new System.Drawing.Point(6, 53);
+            this.verifyFileBtn.Name = "verifyFileBtn";
+            this.verifyFileBtn.Size = new System.Drawing.Size(148, 25);
+            this.verifyFileBtn.TabIndex = 1;
+            this.verifyFileBtn.Text = "Verify file ";
+            this.verifyFileBtn.UseVisualStyleBackColor = true;
+            this.verifyFileBtn.Click += new System.EventHandler(this.verifyFileBtn_Click);
+            // 
+            // signFileBtn
+            // 
+            this.signFileBtn.Location = new System.Drawing.Point(6, 22);
+            this.signFileBtn.Name = "signFileBtn";
+            this.signFileBtn.Size = new System.Drawing.Size(148, 25);
+            this.signFileBtn.TabIndex = 0;
+            this.signFileBtn.Text = "Sign file";
+            this.signFileBtn.UseVisualStyleBackColor = true;
+            this.signFileBtn.Click += new System.EventHandler(this.signFileBtn_Click);
             // 
             // groupBox4
             // 
@@ -680,6 +716,7 @@ namespace Cube.Secure.WinForms
             this.groupBox2.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
+            this.groupBox5.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -748,6 +785,9 @@ namespace Cube.Secure.WinForms
         private System.Windows.Forms.ToolStripMenuItem compareFilesMenuItem;
         private System.Windows.Forms.ToolStripMenuItem hashTextMenuItem;
         private System.Windows.Forms.ToolStripMenuItem compareTextsMenuItem;
+        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.Button verifyFileBtn;
+        private System.Windows.Forms.Button signFileBtn;
     }
 }
 
