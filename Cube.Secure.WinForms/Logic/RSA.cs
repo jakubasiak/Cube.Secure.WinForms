@@ -53,9 +53,9 @@ namespace Cube.Secure.WinForms.Logic
         {
             var key = Convert.ToBase64String(this.rsa.ExportRSAPublicKey());
             var sb = new StringBuilder();
-            sb.AppendLine("-----BEGIN RSA PRIVATE KEY-----");
+            sb.AppendLine("-----BEGIN RSA PUBLIC KEY-----");
             sb.AppendLine(key);
-            sb.AppendLine("-----END RSA PRIVATE KEY-----");
+            sb.AppendLine("-----END RSA PUBLIC KEY-----");
             return sb.ToString();
         }
 
@@ -63,9 +63,9 @@ namespace Cube.Secure.WinForms.Logic
         {
             var key = Convert.ToBase64String(this.rsa.ExportRSAPrivateKey());
             var sb = new StringBuilder();
-            sb.AppendLine("-----BEGIN RSA PUBLIC KEY-----");
+            sb.AppendLine("-----BEGIN RSA PRIVATE KEY-----");
             sb.AppendLine(key);
-            sb.AppendLine("-----END RSA PUBLIC KEY-----");
+            sb.AppendLine("-----END RSA PRIVATE KEY-----");
             return sb.ToString();
         }
 

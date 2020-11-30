@@ -56,9 +56,9 @@ namespace Cube.Secure.WinForms
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(12, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(88, 15);
+            this.label1.Size = new System.Drawing.Size(61, 15);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Public key XML";
+            this.label1.Text = "Public key";
             // 
             // copyPublicKeyBtn
             // 
@@ -120,9 +120,9 @@ namespace Cube.Secure.WinForms
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(13, 206);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(91, 15);
+            this.label2.Size = new System.Drawing.Size(64, 15);
             this.label2.TabIndex = 1;
-            this.label2.Text = "Private key XML";
+            this.label2.Text = "Private key";
             // 
             // GenerateKeysDialog
             // 

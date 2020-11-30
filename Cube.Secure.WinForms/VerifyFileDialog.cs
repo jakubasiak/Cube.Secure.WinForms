@@ -125,7 +125,7 @@ namespace Cube.Secure.WinForms
                 try
                 {
                     var result = this.rsa.VerifySignature(hash, signature, this.keyRichTextBox.Text);
-                    this.resultLabel.Text = result ? "The file was not modified and has been signed by author" : "The author is unknown or the file has been modified";
+                    this.resultLabel.Text = result ? "Positive verification" : "Negative verification";
                 }
                 catch (Exception ex)
                 {

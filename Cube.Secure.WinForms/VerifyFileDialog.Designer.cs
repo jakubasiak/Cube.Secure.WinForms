@@ -209,6 +209,7 @@
             // 
             // resultLabel
             // 
+            this.resultLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.resultLabel.AutoSize = true;
             this.resultLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.resultLabel.Location = new System.Drawing.Point(51, 390);
