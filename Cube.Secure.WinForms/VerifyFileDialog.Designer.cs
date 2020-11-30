@@ -199,6 +199,7 @@
             // 
             // label2
             // 
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(13, 390);
             this.label2.Name = "label2";
@@ -234,7 +235,7 @@
             this.Controls.Add(this.filePathTextBox);
             this.Controls.Add(this.openFileBtn);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MinimumSize = new System.Drawing.Size(500, 400);
+            this.MinimumSize = new System.Drawing.Size(500, 500);
             this.Name = "VerifyFileDialog";
             this.Text = "Verify file";
             this.panel3.ResumeLayout(false);

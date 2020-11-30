@@ -71,6 +71,9 @@ namespace Cube.Secure.WinForms
             this.compareFilesMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hashTextMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.compareTextsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem6 = new System.Windows.Forms.ToolStripMenuItem();
+            this.signFileMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.varifyFileMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pathTextBox = new System.Windows.Forms.TextBox();
             this.encryptWithNamesBtn = new System.Windows.Forms.Button();
             this.decryptWithNamesBtn = new System.Windows.Forms.Button();
@@ -200,7 +203,8 @@ namespace Cube.Secure.WinForms
             this.toolStripMenuItem2,
             this.toolStripMenuItem3,
             this.toolStripMenuItem4,
-            this.toolStripMenuItem5});
+            this.toolStripMenuItem5,
+            this.toolStripMenuItem6});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
             this.menuStrip.Size = new System.Drawing.Size(944, 24);
@@ -416,6 +420,29 @@ namespace Cube.Secure.WinForms
             this.compareTextsMenuItem.Text = "Compare texts";
             this.compareTextsMenuItem.Click += new System.EventHandler(this.compareTextBtn_Click);
             // 
+            // toolStripMenuItem6
+            // 
+            this.toolStripMenuItem6.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.signFileMenuItem,
+            this.varifyFileMenuItem});
+            this.toolStripMenuItem6.Name = "toolStripMenuItem6";
+            this.toolStripMenuItem6.Size = new System.Drawing.Size(105, 20);
+            this.toolStripMenuItem6.Text = "Digital signature";
+            // 
+            // signFileMenuItem
+            // 
+            this.signFileMenuItem.Name = "signFileMenuItem";
+            this.signFileMenuItem.Size = new System.Drawing.Size(122, 22);
+            this.signFileMenuItem.Text = "Sign file";
+            this.signFileMenuItem.Click += new System.EventHandler(this.signFileBtn_Click);
+            // 
+            // varifyFileMenuItem
+            // 
+            this.varifyFileMenuItem.Name = "varifyFileMenuItem";
+            this.varifyFileMenuItem.Size = new System.Drawing.Size(122, 22);
+            this.varifyFileMenuItem.Text = "Verify file";
+            this.varifyFileMenuItem.Click += new System.EventHandler(this.verifyFileBtn_Click);
+            // 
             // pathTextBox
             // 
             this.pathTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -620,7 +647,7 @@ namespace Cube.Secure.WinForms
             this.groupBox5.Size = new System.Drawing.Size(163, 85);
             this.groupBox5.TabIndex = 11;
             this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "Digital Signature";
+            this.groupBox5.Text = "Digital signature";
             // 
             // verifyFileBtn
             // 
@@ -788,6 +815,9 @@ namespace Cube.Secure.WinForms
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.Button verifyFileBtn;
         private System.Windows.Forms.Button signFileBtn;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem6;
+        private System.Windows.Forms.ToolStripMenuItem signFileMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem varifyFileMenuItem;
     }
 }
 
