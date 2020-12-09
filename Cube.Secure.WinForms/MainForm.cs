@@ -11,6 +11,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Cube.Secure.WinForms.Logic;
+using Ionic.Zip;
 
 namespace Cube.Secure.WinForms
 {
@@ -101,6 +102,17 @@ namespace Cube.Secure.WinForms
             if (Directory.Exists(selectedPath))
             {
                 this.RefreashFileList(selectedPath);
+            }
+            if (File.Exists(selectedPath))
+            {
+                var process = new Process
+                {
+                    StartInfo = new ProcessStartInfo(selectedPath)
+                    {
+                        UseShellExecute = true,
+                    }
+                };
+                process.Start();
             }
         }
 
@@ -648,6 +660,25 @@ namespace Cube.Secure.WinForms
             VerifyFileDialog verifyFileDialog = new VerifyFileDialog(path, this.Rsa);
             verifyFileDialog.StartPosition = FormStartPosition.CenterParent;
             verifyFileDialog.ShowDialog();
+        }
+
+        private void compressBtn_Click(object sender, EventArgs e)
+        {
+            using (ZipFile zip = new ZipFile())
+            {
+                foreach(var path in this.selectedPaths)
+                {
+                    zip.AddFile(path, ".");
+                }
+
+                zip.Save(@"C:\Users\kubak\Pictures\Uplay - Copy\Far Cry® 5\test.zip");
+                this.RefreashFileList(this.currentDirectory);
+            }
+        }
+
+        private void extractBtn_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

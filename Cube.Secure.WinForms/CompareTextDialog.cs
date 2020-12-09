@@ -72,13 +72,13 @@ namespace Cube.Secure.WinForms
         private void firstTextRichTextBox_TextChanged(object sender, EventArgs e)
         {
             this.CalculateFirstHash();
-            this.resultLabel.Text = string.Compare(this.firstTextSHA256textBox.Text, this.secondTextSHA256textBox.Text, true, System.Globalization.CultureInfo.InvariantCulture) == 0 ? "Files are the same" : "Files are different";
+            this.resultLabel.Text = string.Compare(this.firstTextSHA256textBox.Text, this.secondTextSHA256textBox.Text, true, System.Globalization.CultureInfo.InvariantCulture) == 0 ? "Texts are the same" : "Texts are different";
         }
 
         private void secondTextRichTextBox_TextChanged(object sender, EventArgs e)
         {
             this.CalculateSecondHash();
-            this.resultLabel.Text = string.Compare(this.firstTextSHA256textBox.Text, this.secondTextSHA256textBox.Text, true, System.Globalization.CultureInfo.InvariantCulture) == 0 ? "Files are the same" : "Files are different";
+            this.resultLabel.Text = string.Compare(this.firstTextSHA256textBox.Text, this.secondTextSHA256textBox.Text, true, System.Globalization.CultureInfo.InvariantCulture) == 0 ? "Texts are the same" : "Texts are different";
         }
     }
 }

@@ -74,6 +74,9 @@ namespace Cube.Secure.WinForms
             this.toolStripMenuItem6 = new System.Windows.Forms.ToolStripMenuItem();
             this.signFileMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.varifyFileMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem7 = new System.Windows.Forms.ToolStripMenuItem();
+            this.compressMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.extractMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pathTextBox = new System.Windows.Forms.TextBox();
             this.encryptWithNamesBtn = new System.Windows.Forms.Button();
             this.decryptWithNamesBtn = new System.Windows.Forms.Button();
@@ -92,6 +95,9 @@ namespace Cube.Secure.WinForms
             this.hybridDecryptTextBtn = new System.Windows.Forms.Button();
             this.hybridEncryptTextBtn = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.extractBtn = new System.Windows.Forms.Button();
+            this.compressBtn = new System.Windows.Forms.Button();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.verifyFileBtn = new System.Windows.Forms.Button();
             this.signFileBtn = new System.Windows.Forms.Button();
@@ -106,6 +112,7 @@ namespace Cube.Secure.WinForms
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.groupBox6.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.SuspendLayout();
@@ -204,7 +211,8 @@ namespace Cube.Secure.WinForms
             this.toolStripMenuItem3,
             this.toolStripMenuItem4,
             this.toolStripMenuItem5,
-            this.toolStripMenuItem6});
+            this.toolStripMenuItem6,
+            this.toolStripMenuItem7});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
             this.menuStrip.Size = new System.Drawing.Size(944, 24);
@@ -443,6 +451,29 @@ namespace Cube.Secure.WinForms
             this.varifyFileMenuItem.Text = "Verify file";
             this.varifyFileMenuItem.Click += new System.EventHandler(this.verifyFileBtn_Click);
             // 
+            // toolStripMenuItem7
+            // 
+            this.toolStripMenuItem7.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.compressMenuItem,
+            this.extractMenuItem});
+            this.toolStripMenuItem7.Name = "toolStripMenuItem7";
+            this.toolStripMenuItem7.Size = new System.Drawing.Size(108, 20);
+            this.toolStripMenuItem7.Text = "File compression";
+            // 
+            // compressMenuItem
+            // 
+            this.compressMenuItem.Name = "compressMenuItem";
+            this.compressMenuItem.Size = new System.Drawing.Size(127, 22);
+            this.compressMenuItem.Text = "Compress";
+            this.compressMenuItem.Click += new System.EventHandler(this.compressBtn_Click);
+            // 
+            // extractMenuItem
+            // 
+            this.extractMenuItem.Name = "extractMenuItem";
+            this.extractMenuItem.Size = new System.Drawing.Size(127, 22);
+            this.extractMenuItem.Text = "Extract";
+            this.extractMenuItem.Click += new System.EventHandler(this.extractBtn_Click);
+            // 
             // pathTextBox
             // 
             this.pathTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -627,6 +658,7 @@ namespace Cube.Secure.WinForms
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.groupBox6);
             this.panel1.Controls.Add(this.groupBox5);
             this.panel1.Controls.Add(this.groupBox4);
             this.panel1.Controls.Add(this.groupBox1);
@@ -638,11 +670,42 @@ namespace Cube.Secure.WinForms
             this.panel1.Size = new System.Drawing.Size(345, 552);
             this.panel1.TabIndex = 10;
             // 
+            // groupBox6
+            // 
+            this.groupBox6.Controls.Add(this.extractBtn);
+            this.groupBox6.Controls.Add(this.compressBtn);
+            this.groupBox6.Location = new System.Drawing.Point(175, 296);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(164, 85);
+            this.groupBox6.TabIndex = 12;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "File compression";
+            // 
+            // extractBtn
+            // 
+            this.extractBtn.Location = new System.Drawing.Point(6, 53);
+            this.extractBtn.Name = "extractBtn";
+            this.extractBtn.Size = new System.Drawing.Size(149, 25);
+            this.extractBtn.TabIndex = 1;
+            this.extractBtn.Text = "Extract";
+            this.extractBtn.UseVisualStyleBackColor = true;
+            this.extractBtn.Click += new System.EventHandler(this.extractBtn_Click);
+            // 
+            // compressBtn
+            // 
+            this.compressBtn.Location = new System.Drawing.Point(6, 22);
+            this.compressBtn.Name = "compressBtn";
+            this.compressBtn.Size = new System.Drawing.Size(149, 25);
+            this.compressBtn.TabIndex = 0;
+            this.compressBtn.Text = "Compress";
+            this.compressBtn.UseVisualStyleBackColor = true;
+            this.compressBtn.Click += new System.EventHandler(this.compressBtn_Click);
+            // 
             // groupBox5
             // 
             this.groupBox5.Controls.Add(this.verifyFileBtn);
             this.groupBox5.Controls.Add(this.signFileBtn);
-            this.groupBox5.Location = new System.Drawing.Point(177, 212);
+            this.groupBox5.Location = new System.Drawing.Point(176, 212);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(163, 85);
             this.groupBox5.TabIndex = 11;
@@ -735,6 +798,7 @@ namespace Cube.Secure.WinForms
             this.MainMenuStrip = this.menuStrip;
             this.MinimumSize = new System.Drawing.Size(700, 600);
             this.Name = "MainForm";
+            this.Text = "Cube Secure 2.0";
             this.statusStrip.ResumeLayout(false);
             this.statusStrip.PerformLayout();
             this.menuStrip.ResumeLayout(false);
@@ -743,6 +807,7 @@ namespace Cube.Secure.WinForms
             this.groupBox2.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
+            this.groupBox6.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -818,6 +883,12 @@ namespace Cube.Secure.WinForms
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem6;
         private System.Windows.Forms.ToolStripMenuItem signFileMenuItem;
         private System.Windows.Forms.ToolStripMenuItem varifyFileMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem7;
+        private System.Windows.Forms.ToolStripMenuItem compressMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem extractMenuItem;
+        private System.Windows.Forms.GroupBox groupBox6;
+        private System.Windows.Forms.Button extractBtn;
+        private System.Windows.Forms.Button compressBtn;
     }
 }
 
