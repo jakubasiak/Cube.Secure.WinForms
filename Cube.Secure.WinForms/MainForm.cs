@@ -130,6 +130,7 @@ namespace Cube.Secure.WinForms
                     bw.RunWorkerCompleted += (object s, RunWorkerCompletedEventArgs e) =>
                     {
                         this.toolStripProgressBar.Value = 100;
+                        this.RefreashFileList(this.currentDirectory);
                         bw.Dispose();
                     };
                     bw.ProgressChanged += (object s, ProgressChangedEventArgs e) =>
@@ -174,6 +175,7 @@ namespace Cube.Secure.WinForms
                 bw.RunWorkerCompleted += (object s, RunWorkerCompletedEventArgs e) =>
                 {
                     this.toolStripProgressBar.Value = 100;
+                    this.RefreashFileList(this.currentDirectory);
                     bw.Dispose();
                 };
                 bw.ProgressChanged += (object s, ProgressChangedEventArgs e) =>
@@ -203,6 +205,7 @@ namespace Cube.Secure.WinForms
 
                 bw.RunWorkerAsync();
             }
+
         }
 
         private void encryptWithNamesBtn_Click(object sender, EventArgs e)
@@ -652,6 +655,7 @@ namespace Cube.Secure.WinForms
             SignFileDialog signFileDialog = new SignFileDialog(path, this.Rsa);
             signFileDialog.StartPosition = FormStartPosition.CenterParent;
             signFileDialog.ShowDialog();
+            this.RefreashFileList(this.currentDirectory);
         }
 
         private void verifyFileBtn_Click(object sender, EventArgs e)

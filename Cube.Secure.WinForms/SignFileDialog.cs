@@ -106,12 +106,5 @@ namespace Cube.Secure.WinForms
             }
         }
 
-        private string AddSuffix(string filename, string suffix)
-        {
-            string fDir = Path.GetDirectoryName(filename);
-            string fName = Path.GetFileNameWithoutExtension(filename);
-            string fExt = Path.GetExtension(filename);
-            return Path.Combine(fDir, String.Concat(fName, suffix, fExt));
-        }
     }
 }
