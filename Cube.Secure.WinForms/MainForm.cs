@@ -73,7 +73,7 @@ namespace Cube.Secure.WinForms
             this.paths.Clear();
 
             this.fileImageList.Images.Add(new Icon(Path.Combine(Environment.CurrentDirectory, @"Assets\", "back.ico")));
-            DirectoryInfo currentDirectoryInfo = Directory.GetParent(this.currentDirectory);
+            DirectoryInfo currentDirectoryInfo = Directory.GetParent(this.currentDirectory) ?? new DirectoryInfo(this.currentDirectory);
             this.paths.Add(currentDirectoryInfo.FullName);
             this.listView.Items.Add(currentDirectoryInfo.Name, 0);
 
@@ -93,7 +93,7 @@ namespace Cube.Secure.WinForms
                 DirectoryInfo directoryInfo = new DirectoryInfo(files[i]);
                 this.paths.Add(directoryInfo.FullName);
                 this.listView.Items.Add(directoryInfo.Name, this.fileImageList.Images.Count - 1);
-            }
+            }      
         }
 
         private void listView_DoubleClick(object sender, EventArgs e)
@@ -664,21 +664,99 @@ namespace Cube.Secure.WinForms
 
         private void compressBtn_Click(object sender, EventArgs e)
         {
-            using (ZipFile zip = new ZipFile())
+            var fileList = new List<string>();
+            foreach (var path in this.selectedPaths)
             {
-                foreach(var path in this.selectedPaths)
+                if(Directory.Exists(path))
                 {
-                    zip.AddFile(path, ".");
+                    fileList.AddRange(Directory.GetFileSystemEntries(path, "*", SearchOption.AllDirectories));
                 }
+                fileList.Add(path);
+            }
 
-                zip.Save(@"C:\Users\kubak\Pictures\Uplay - Copy\Far Cry® 5\test.zip");
-                this.RefreashFileList(this.currentDirectory);
+            if (fileList.Any())
+            {
+                ArchiveNameDialog archiveNameDialog = new ArchiveNameDialog();
+                archiveNameDialog.StartPosition = FormStartPosition.CenterParent;
+                var result = archiveNameDialog.ShowDialog();
+                if (result == DialogResult.OK && !string.IsNullOrEmpty(archiveNameDialog.ArchiveName))
+                {
+                    using (ZipFile zip = new ZipFile())
+                    {
+                        foreach (var path in fileList)
+                        {
+                            if (File.Exists(path))
+                            {
+                                var relativePath = Path.GetDirectoryName(Path.GetRelativePath(this.currentDirectory, path));
+                                zip.AddFile(path, relativePath);
+                            }
+                        }
+
+                        zip.Save(Path.Combine(this.currentDirectory, $"{archiveNameDialog.ArchiveName}.zip"));
+                        this.RefreashFileList(this.currentDirectory);
+                    }
+                }
             }
         }
 
         private void extractBtn_Click(object sender, EventArgs e)
         {
+            foreach (var path in this.selectedPaths)
+            {
+                if (File.Exists(path) && Path.GetExtension(path) == ".zip")
+                {
+                    var outputDirectory = Path.Combine(this.currentDirectory, Path.GetFileNameWithoutExtension(path));
+                    using (ZipFile zip = ZipFile.Read(path))
+                    {
+                        Directory.CreateDirectory(outputDirectory);
+                        foreach (ZipEntry entry in zip)
+                        {
+                            entry.Extract(outputDirectory, ExtractExistingFileAction.OverwriteSilently);
+                        }
+                    }
+                }
+                this.RefreashFileList(this.currentDirectory);
+            }
+        }
 
+        private void listView_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Delete)
+            {
+                foreach (var selectedPath in this.selectedPaths)
+                {
+                    if (Directory.Exists(selectedPath))
+                    {
+                        Directory.Delete(selectedPath, true);
+                    }
+                    if (File.Exists(selectedPath))
+                    {
+                        File.Delete(selectedPath);
+                    }
+                }
+                this.RefreashFileList(this.currentDirectory);
+            }
+            if (e.KeyCode == Keys.Enter)
+            {
+                foreach(var selectedPath in this.selectedPaths)
+                {
+                    if (Directory.Exists(selectedPath))
+                    {
+                        this.RefreashFileList(selectedPath);
+                    }
+                    if (File.Exists(selectedPath))
+                    {
+                        var process = new Process
+                        {
+                            StartInfo = new ProcessStartInfo(selectedPath)
+                            {
+                                UseShellExecute = true,
+                            }
+                        };
+                        process.Start();
+                    }
+                }
+            }
         }
     }
 }

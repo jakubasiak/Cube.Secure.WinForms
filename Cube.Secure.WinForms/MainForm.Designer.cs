@@ -162,6 +162,7 @@ namespace Cube.Secure.WinForms
             this.listView.UseCompatibleStateImageBehavior = false;
             this.listView.Click += new System.EventHandler(this.listView_Click);
             this.listView.DoubleClick += new System.EventHandler(this.listView_DoubleClick);
+            this.listView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.listView_KeyDown);
             // 
             // fileImageList
             // 
